@@ -2109,7 +2109,85 @@ const CATEGORIES = [
     if (saved.length) window._dc_custom_59fifty = saved;
   } catch(_){}
 })();
-const PRODUCTS = {
+// ═══════════════════════════════════════════
+// GOOGLE SHEETS CATALOG
+// Para cambiar la fuente de datos, actualiza esta URL
+// con la URL de tu Google Sheet publicado como CSV
+// ═══════════════════════════════════════════
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQwvzFO679GOguczJwaxrLiASihavNnIEWQbh3G4a4cnC2r5a_Lo9MNtacuBlA_Ae1fqbpxQUnSSJWc/pub?output=csv';
+
+let PRODUCTS = {};
+
+function parseCSVRow(row) {
+  const result = [];
+  let inQuote = false, current = '';
+  for (let i = 0; i < row.length; i++) {
+    const ch = row[i];
+    if (ch === '"') { inQuote = !inQuote; }
+    else if (ch === ',' && !inQuote) { result.push(current.trim()); current = ''; }
+    else { current += ch; }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+async function loadCatalog() {
+  const catsEl = document.getElementById('categories');
+  if (catsEl) catsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--gold);font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.15em;">CARGANDO CATÁLOGO<span id="loading-dots">...</span></div>';
+
+  // Animate dots
+  let dotCount = 0;
+  const dotsInterval = setInterval(() => {
+    const el = document.getElementById('loading-dots');
+    if (el) { dotCount = (dotCount + 1) % 4; el.textContent = '.'.repeat(dotCount + 1); }
+  }, 400);
+
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const lines = text.trim().split('\n');
+    const headers = parseCSVRow(lines[0]);
+    const idxOf = key => headers.indexOf(key);
+
+    PRODUCTS = {};
+    for (let i = 1; i < lines.length; i++) {
+      const cols = parseCSVRow(lines[i]);
+      const get = key => cols[idxOf(key)] || '';
+      const catId = get('catId');
+      const name  = get('name');
+      if (!catId || !name) continue;
+      if (!PRODUCTS[catId]) PRODUCTS[catId] = [];
+      const prod = {
+        id:       get('id') || ('p_' + i),
+        name,
+        price:    parseFloat(get('price')) || 0,
+        category: get('category') || catId.toUpperCase()
+      };
+      const photo = get('photo');
+      const talla = get('talla');
+      const tipo  = get('tipo');
+      const tag   = get('tag');
+      const disp  = get('disponible');
+      if (photo)  prod.photo = photo;
+      if (talla)  prod.talla = talla;
+      if (tipo)   prod.tipo  = tipo;
+      if (tag)    prod.tag   = tag;
+      if (disp === 'false' || disp === 'no') prod._unavailable = true;
+      PRODUCTS[catId].push(prod);
+    }
+    clearInterval(dotsInterval);
+    renderCategories();
+    updateCartUI();
+  } catch(err) {
+    clearInterval(dotsInterval);
+    console.error('Error cargando catálogo:', err);
+    if (catsEl) catsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--sand);font-family:var(--font-body);font-size:1rem;">No se pudo cargar el catálogo.<br><br><button onclick="loadCatalog()" style="margin-top:16px;padding:12px 28px;background:var(--gold);color:#080608;border:none;border-radius:6px;font-family:var(--font-display);font-size:1rem;letter-spacing:0.1em;cursor:pointer;">REINTENTAR</button></div>';
+  }
+}
+
+// ── LEGACY PRODUCTS fallback (se ignora si loadCatalog tiene éxito) ──
+const _LEGACY_PRODUCTS = {
       barbas: [
       { id: "b1", name: "BARBAS D CRYSTAL", price: 600, category: "BARBAS", photo: "img_0096.jpg" },
       { id: "b2", name: "BARBAS BBA CHROME", price: 600, category: "BARBAS", photo: "img_0097.jpg" },
@@ -2258,6 +2336,7 @@ const PRODUCTS = {
 
   ],
 };
+// ── FIN LEGACY ──
 
 // ═══════════════════════════════════════════
 // CANVAS DRAWING HELPERS (product placeholders)
@@ -2988,8 +3067,7 @@ if(logoWrap) {
   logoWrap.addEventListener('keydown', e => e.key === 'Enter' && goHome());
 }
 
-renderCategories();
-updateCartUI();
+loadCatalog();
 initHero();
 
 // ═══════════════════════════════════════════
