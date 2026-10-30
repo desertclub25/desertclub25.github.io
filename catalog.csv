@@ -1,0 +1,106 @@
+id,catId,name,price,category,photo,talla,tipo,tag,disponible
+b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true
+b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true
+b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true
+b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true
+b5,barbas,BARBAS SNAKE GOLD,600,BARBAS,img_0100.jpg,,,,true
+b6,barbas,BARBAS CROSSES,600,BARBAS,img_0101.jpg,,,,true
+b7,barbas,BARBAS BH,600,BARBAS,img_0102.jpg,,,,true
+b8,barbas,BARBAS MOON,600,BARBAS,img_0103.jpg,,,,true
+b9,barbas,BARBAS SNAKE CROSS,600,BARBAS,img_0104.jpg,,,,true
+b10,barbas,BARBAS ETERNO,600,BARBAS,img_0105.jpg,,,,true
+b11,barbas,BARBAS SUN,600,BARBAS,img_0106.jpg,,,,true
+b12,barbas,BARBAS RICH FOREVER,600,BARBAS,img_0107.jpg,,,,true
+nd1,dandy,LA Daddy Paisley,600,DANDY,img_0001.jpg,,,,true
+nd2,dandy,Fuerza Regida,600,DANDY,img_0002.jpg,,,,true
+nd3,dandy,AWAK Jesus,600,DANDY,img_0003.jpg,,,,true
+nd4,dandy,DA Stars Multicolor,600,DANDY,img_0004.jpg,,,,true
+nd5,dandy,Canelo Undisputed,600,DANDY,img_0005.jpg,,,,true
+nd6,dandy,Houston Astros Pink,600,DANDY,img_0006.jpg,,,,true
+nd7,dandy,LA DM Teal,600,DANDY,img_0007.jpg,,,,true
+nd8,dandy,LA Black Studs,600,DANDY,img_0008.jpg,,,,true
+nd9,dandy,Sad Forever Flames,600,DANDY,img_0009.jpg,,,,true
+nd10,dandy,LA Stars Gold,600,DANDY,img_0010.jpg,,,,true
+nd11,dandy,Chicago White Sox Disney,600,DANDY,img_0011.jpg,,,,true
+nd12,dandy,Houston Astros Chameleon,600,DANDY,img_0012.jpg,,,,true
+nd13,dandy,LA Crystals,600,DANDY,img_0013.jpg,,,,true
+nd14,dandy,DANDY Black Stars,600,DANDY,img_0014.jpg,,,,true
+nd15,dandy,NY Yankees Skulls,600,DANDY,img_0015.jpg,,,,true
+31n1,31hats,NY Yankees Bones 2024,550,31 HATS,img_0016.jpg,,,,true
+31n2,31hats,Fuerzas Uafras FR,550,31 HATS,img_0017.jpg,,,,true
+31n3,31hats,M Black Studs Angel,550,31 HATS,img_0018.jpg,,,,true
+31n4,31hats,M Wings Clouds,550,31 HATS,img_0019.jpg,,,,true
+nr1,rude,LA Rude Awakenings Noir,600,RUDE AWAKENINGS,img_0020.jpg,,,,true
+nr2,rude,Houston Astros Triple H,600,RUDE AWAKENINGS,img_0021.jpg,,,,true
+nr3,rude,RUDE Purple Rhinestones,600,RUDE AWAKENINGS,img_0022.jpg,,,,true
+nr4,rude,Total Black Cross,600,RUDE AWAKENINGS,img_0023.jpg,,,,true
+nr5,rude,Rude Awakenings RA Metal,600,RUDE AWAKENINGS,img_0024.jpg,,,,true
+pa1,placa,Soy Agricultor,380,PLACA ABS,img_0025.jpg,,,,true
+pa2,placa,Half Skull Streetwear,380,PLACA ABS,img_0026.jpg,,,,true
+pa3,placa,Red Chevy Truck,380,PLACA ABS,img_0027.jpg,,,,true
+pa4,placa,Black Horse Red,380,PLACA ABS,img_0028.jpg,,,,true
+pa5,placa,627 Star Tan,380,PLACA ABS,img_0029.jpg,,,,true
+pa6,placa,Fighting Roosters,380,PLACA ABS,img_0030.jpg,,,,true
+pa7,placa,Four Aces,380,PLACA ABS,img_0031.jpg,,,,true
+pa8,placa,Four Leaf Clover,380,PLACA ABS,img_0032.jpg,,,,true
+pa9,placa,Gold Rooster Navy,380,PLACA ABS,img_0033.jpg,,,,true
+pa10,placa,Gold Tractor,380,PLACA ABS,img_0034.jpg,,,,true
+pa11,placa,727 Airplane Gold,380,PLACA ABS,img_0035.jpg,,,,true
+pa12,placa,Gold Combine,380,PLACA ABS,img_0036.jpg,,,,true
+pa13,placa,Mazorca Corn,380,PLACA ABS,img_0037.jpg,,,,true
+pa14,placa,627 Black,380,PLACA ABS,img_0038.jpg,,,,true
+pa15,placa,Gold Rooster Black,380,PLACA ABS,img_0039.jpg,,,,true
+nf1,9forty,NY Yankees Heart Rojo,450,9FORTY,img_0040.jpg,,,,true
+nf2,9forty,NY Yankees World Series 1999,450,9FORTY,img_0041.jpg,,,,true
+nf3,9forty,LA Dodgers x Ohtani,450,9FORTY,img_0042.jpg,,,,true
+nf4,9forty,LA Dodgers Katakana 17,450,9FORTY,img_0043.jpg,,,,true
+nf5,9forty,Atlanta Braves The Show,450,9FORTY,img_0044.jpg,,,,true
+nf6,9forty,LA Dodgers Rosas,450,9FORTY,img_0045.jpg,,,,true
+nf7,9forty,Chicago Blackhawks,450,9FORTY,img_0046.jpg,,,,true
+nf8,9forty,NY Yankees Gold World Series,450,9FORTY,img_0047.jpg,,,,true
+nf9,9forty,LA Dodgers Stadium 60,450,9FORTY,img_0048.jpg,,,,true
+nf10,9forty,NY Yankees Heart Navy,450,9FORTY,img_0049.jpg,,,,true
+nf11,9forty,NY Mets Brooklyn,450,9FORTY,img_0050.jpg,,,,true
+nf12,9forty,NY Yankees Flames 2005,450,9FORTY,img_0051.jpg,,,,true
+nf13,9forty,OKC Thunder Champions,450,9FORTY,img_0052.jpg,,,,true
+nf14,9forty,Toronto Blue Jays Verde,450,9FORTY,img_0053.jpg,,,,true
+nf15,9forty,LA Dodgers Tan,450,9FORTY,img_0054.jpg,,,,true
+nf16,9forty,Chicago White Sox Sakura,450,9FORTY,img_0055.jpg,,,,true
+s7_1,59fifty,Blue Jays Black,500,59FIFTY,img_0056.jpg,7,,,true
+s7_2,59fifty,LA Dodgers Black,500,59FIFTY,img_0057.jpg,7,,,true
+s7_3,59fifty,Detroit Tigers Gold D,500,59FIFTY,img_0058.jpg,7,,,true
+s7_4,59fifty,LA Dodgers Red,500,59FIFTY,img_0059.jpg,7,,,true
+s7_5,59fifty,Fear of God M Navy,500,59FIFTY,img_0060.jpg,7,,,true
+s738_1,59fifty,Padres Brown Gold,500,59FIFTY,img_0061.jpg,7 3/8,,,true
+s738_2,59fifty,Fear of God F Black Gold,500,59FIFTY,img_0062.jpg,7 3/8,,,true
+s738_3,59fifty,LA Dodgers Camel Purple,500,59FIFTY,img_0063.jpg,7 3/8,,,true
+s738_4,59fifty,Pirates R Black Gold,500,59FIFTY,img_0064.jpg,7 3/8,,,true
+s738_5,59fifty,MLB All Teams Black,500,59FIFTY,img_0065.jpg,7 3/8,,,true
+s738_6,59fifty,Chicago Cubs Blue Champions,500,59FIFTY,img_0066.jpg,7 3/8,,,true
+s738_7,59fifty,MLB All Teams Camel,500,59FIFTY,img_0067.jpg,7 3/8,,,true
+s738_8,59fifty,LA Dodgers Black Gold,500,59FIFTY,img_0068.jpg,7 3/8,,,true
+s738_9,59fifty,Blue Jays Camel Black,500,59FIFTY,img_0069.jpg,7 3/8,,,true
+s738_10,59fifty,NY Yankees Stars Teal,500,59FIFTY,img_0070.jpg,7 3/8,,,true
+s738_11,59fifty,Anaheim Ducks Gray,500,59FIFTY,img_0071.jpg,7 3/8,,,true
+s738_12,59fifty,Born x Raised Mexico Black,500,59FIFTY,img_0072.jpg,7 3/8,,,true
+s738_13,59fifty,Atlanta Braves Camel Navy,500,59FIFTY,img_0073.jpg,7 3/8,,,true
+s738_14,59fifty,Chicago Cubs Black Red,500,59FIFTY,img_0074.jpg,7 3/8,,,true
+s738_15,59fifty,Mexico Cream Blue,500,59FIFTY,img_0075.jpg,7 3/8,,,true
+s738_16,59fifty,NY Yankees Black Flames,500,59FIFTY,img_0076.jpg,7 3/8,,,true
+s712_1,59fifty,Chicago Cubs Black Red 2,500,59FIFTY,img_0077.jpg,7 1/2,,,true
+s712_2,59fifty,Detroit Tigers Navy All-Star,500,59FIFTY,img_0078.jpg,7 1/2,,,true
+s712_3,59fifty,LA Dodgers White Blue,500,59FIFTY,img_0079.jpg,7 1/2,,,true
+sb_1,59fifty,Atlanta Braves Navy 1971,400,59FIFTY,img_0080.jpg,,snapback,,true
+sb_2,59fifty,Angels Red Black 60th,400,59FIFTY,img_0081.jpg,,snapback,,true
+sb_3,59fifty,White Sox Black Snapback,400,59FIFTY,img_0082.jpg,,snapback,,true
+n1,59fifty,Blue Jays Chrome,500,59FIFTY,img_0083.jpg,7 1/4,,,true
+n2,59fifty,Nationals Angel Patch,500,59FIFTY,img_0084.jpg,7 1/4,,,true
+n3,59fifty,White Sox All-Star,500,59FIFTY,img_0085.jpg,7 1/4,,,true
+n4,59fifty,SF Giants World Series,500,59FIFTY,img_0086.jpg,7 1/4,,,true
+n5,59fifty,Indians World Series,500,59FIFTY,img_0087.jpg,7 1/4,,,true
+n6,59fifty,Born N La Red,500,59FIFTY,img_0088.jpg,7 1/4,,,true
+n7,59fifty,Yankees World Series,500,59FIFTY,img_0089.jpg,7 1/4,,,true
+n8,59fifty,MLB All Teams,500,59FIFTY,img_0090.jpg,7 1/4,,,true
+ot_1,otras,Stars Rhinestone Black,500,OTRAS MARCAS,img_0091.jpg,,,,true
+ot_2,otras,LA Triple Black LV,500,OTRAS MARCAS,img_0092.jpg,,,,true
+ot_3,otras,Dragon Premium Black,500,OTRAS MARCAS,img_0093.jpg,,,,true
