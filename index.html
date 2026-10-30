@@ -2182,7 +2182,7 @@ async function loadCatalog() {
   } catch(err) {
     clearInterval(dotsInterval);
     console.error('Error cargando catálogo:', err);
-    if (catsEl) catsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--sand);font-family:var(--font-body);font-size:1rem;">No se pudo cargar el catálogo.<br><br><button onclick="loadCatalog()" style="margin-top:16px;padding:12px 28px;background:var(--gold);color:#080608;border:none;border-radius:6px;font-family:var(--font-display);font-size:1rem;letter-spacing:0.1em;cursor:pointer;">REINTENTAR</button></div>';
+    if (catsEl) catsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--sand);font-family:var(--font-body);font-size:1rem;">No se pudo cargar el catálogo.<br><small style="color:#aaa;word-break:break-all;">' + String(err) + '</small><br><br><button onclick="loadCatalog()" style="margin-top:16px;padding:12px 28px;background:var(--gold);color:#080608;border:none;border-radius:6px;font-family:var(--font-display);font-size:1rem;letter-spacing:0.1em;cursor:pointer;">REINTENTAR</button></div>';
   }
 }
 
