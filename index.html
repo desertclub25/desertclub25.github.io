@@ -2115,6 +2115,132 @@ const CATEGORIES = [
 // con la URL de tu Google Sheet publicado como CSV
 // ═══════════════════════════════════════════
 const SHEET_CSV_URL = 'catalog.csv';
+const CATALOG_VERSION = 'v3-embed';
+
+// Catálogo embebido — se usa si falla el fetch del CSV
+const EMBEDDED_PRODUCTS = {
+  barbas: [
+    {id:'b1',name:'BARBAS D CRYSTAL',price:600,category:'BARBAS',photo:'img_0096.jpg'},
+    {id:'b2',name:'BARBAS BBA CHROME',price:600,category:'BARBAS',photo:'img_0097.jpg'},
+    {id:'b3',name:'BARBAS 777',price:600,category:'BARBAS',photo:'img_0098.jpg'},
+    {id:'b4',name:'BARBAS STAR',price:600,category:'BARBAS',photo:'img_0099.jpg'},
+    {id:'b5',name:'BARBAS SNAKE GOLD',price:600,category:'BARBAS',photo:'img_0100.jpg'},
+    {id:'b6',name:'BARBAS CROSSES',price:600,category:'BARBAS',photo:'img_0101.jpg'},
+    {id:'b7',name:'BARBAS BH',price:600,category:'BARBAS',photo:'img_0102.jpg'},
+    {id:'b8',name:'BARBAS MOON',price:600,category:'BARBAS',photo:'img_0103.jpg'},
+    {id:'b9',name:'BARBAS SNAKE CROSS',price:600,category:'BARBAS',photo:'img_0104.jpg'},
+    {id:'b10',name:'BARBAS ETERNO',price:600,category:'BARBAS',photo:'img_0105.jpg'},
+    {id:'b11',name:'BARBAS SUN',price:600,category:'BARBAS',photo:'img_0106.jpg'},
+    {id:'b12',name:'BARBAS RICH FOREVER',price:600,category:'BARBAS',photo:'img_0107.jpg'}
+  ],
+  dandy: [
+    {id:'nd1',name:'LA Daddy Paisley',price:600,category:'DANDY',photo:'img_0001.jpg'},
+    {id:'nd2',name:'Fuerza Regida',price:600,category:'DANDY',photo:'img_0002.jpg'},
+    {id:'nd3',name:'AWAK Jesus',price:600,category:'DANDY',photo:'img_0003.jpg'},
+    {id:'nd4',name:'DA Stars Multicolor',price:600,category:'DANDY',photo:'img_0004.jpg'},
+    {id:'nd5',name:'Canelo Undisputed',price:600,category:'DANDY',photo:'img_0005.jpg'},
+    {id:'nd6',name:'Houston Astros Pink',price:600,category:'DANDY',photo:'img_0006.jpg'},
+    {id:'nd7',name:'LA DM Teal',price:600,category:'DANDY',photo:'img_0007.jpg'},
+    {id:'nd8',name:'LA Black Studs',price:600,category:'DANDY',photo:'img_0008.jpg'},
+    {id:'nd9',name:'Sad Forever Flames',price:600,category:'DANDY',photo:'img_0009.jpg'},
+    {id:'nd10',name:'LA Stars Gold',price:600,category:'DANDY',photo:'img_0010.jpg'},
+    {id:'nd11',name:'Chicago White Sox Disney',price:600,category:'DANDY',photo:'img_0011.jpg'},
+    {id:'nd12',name:'Houston Astros Chameleon',price:600,category:'DANDY',photo:'img_0012.jpg'},
+    {id:'nd13',name:'LA Crystals',price:600,category:'DANDY',photo:'img_0013.jpg'},
+    {id:'nd14',name:'DANDY Black Stars',price:600,category:'DANDY',photo:'img_0014.jpg'},
+    {id:'nd15',name:'NY Yankees Skulls',price:600,category:'DANDY',photo:'img_0015.jpg'}
+  ],
+  '31hats': [
+    {id:'31n1',name:'NY Yankees Bones 2024',price:550,category:'31 HATS',photo:'img_0016.jpg'},
+    {id:'31n2',name:'Fuerzas Uafras FR',price:550,category:'31 HATS',photo:'img_0017.jpg'},
+    {id:'31n3',name:'M Black Studs Angel',price:550,category:'31 HATS',photo:'img_0018.jpg'},
+    {id:'31n4',name:'M Wings Clouds',price:550,category:'31 HATS',photo:'img_0019.jpg'}
+  ],
+  rude: [
+    {id:'nr1',name:'LA Rude Awakenings Noir',price:600,category:'RUDE AWAKENINGS',photo:'img_0020.jpg'},
+    {id:'nr2',name:'Houston Astros Triple H',price:600,category:'RUDE AWAKENINGS',photo:'img_0021.jpg'},
+    {id:'nr3',name:'RUDE Purple Rhinestones',price:600,category:'RUDE AWAKENINGS',photo:'img_0022.jpg'},
+    {id:'nr4',name:'Total Black Cross',price:600,category:'RUDE AWAKENINGS',photo:'img_0023.jpg'},
+    {id:'nr5',name:'Rude Awakenings RA Metal',price:600,category:'RUDE AWAKENINGS',photo:'img_0024.jpg'}
+  ],
+  placa: [
+    {id:'pa1',name:'Soy Agricultor',price:380,category:'PLACA ABS',photo:'img_0025.jpg'},
+    {id:'pa2',name:'Half Skull Streetwear',price:380,category:'PLACA ABS',photo:'img_0026.jpg'},
+    {id:'pa3',name:'Red Chevy Truck',price:380,category:'PLACA ABS',photo:'img_0027.jpg'},
+    {id:'pa4',name:'Black Horse Red',price:380,category:'PLACA ABS',photo:'img_0028.jpg'},
+    {id:'pa5',name:'627 Star Tan',price:380,category:'PLACA ABS',photo:'img_0029.jpg'},
+    {id:'pa6',name:'Fighting Roosters',price:380,category:'PLACA ABS',photo:'img_0030.jpg'},
+    {id:'pa7',name:'Four Aces',price:380,category:'PLACA ABS',photo:'img_0031.jpg'},
+    {id:'pa8',name:'Four Leaf Clover',price:380,category:'PLACA ABS',photo:'img_0032.jpg'},
+    {id:'pa9',name:'Gold Rooster Navy',price:380,category:'PLACA ABS',photo:'img_0033.jpg'},
+    {id:'pa10',name:'Gold Tractor',price:380,category:'PLACA ABS',photo:'img_0034.jpg'},
+    {id:'pa11',name:'727 Airplane Gold',price:380,category:'PLACA ABS',photo:'img_0035.jpg'},
+    {id:'pa12',name:'Gold Combine',price:380,category:'PLACA ABS',photo:'img_0036.jpg'},
+    {id:'pa13',name:'Mazorca Corn',price:380,category:'PLACA ABS',photo:'img_0037.jpg'},
+    {id:'pa14',name:'627 Black',price:380,category:'PLACA ABS',photo:'img_0038.jpg'},
+    {id:'pa15',name:'Gold Rooster Black',price:380,category:'PLACA ABS',photo:'img_0039.jpg'}
+  ],
+  '9forty': [
+    {id:'nf1',name:'NY Yankees Heart Rojo',price:450,category:'9FORTY',photo:'img_0040.jpg'},
+    {id:'nf2',name:'NY Yankees World Series 1999',price:450,category:'9FORTY',photo:'img_0041.jpg'},
+    {id:'nf3',name:'LA Dodgers x Ohtani',price:450,category:'9FORTY',photo:'img_0042.jpg'},
+    {id:'nf4',name:'LA Dodgers Katakana 17',price:450,category:'9FORTY',photo:'img_0043.jpg'},
+    {id:'nf5',name:'Atlanta Braves The Show',price:450,category:'9FORTY',photo:'img_0044.jpg'},
+    {id:'nf6',name:'LA Dodgers Rosas',price:450,category:'9FORTY',photo:'img_0045.jpg'},
+    {id:'nf7',name:'Chicago Blackhawks',price:450,category:'9FORTY',photo:'img_0046.jpg'},
+    {id:'nf8',name:'NY Yankees Gold World Series',price:450,category:'9FORTY',photo:'img_0047.jpg'},
+    {id:'nf9',name:'LA Dodgers Stadium 60',price:450,category:'9FORTY',photo:'img_0048.jpg'},
+    {id:'nf10',name:'NY Yankees Heart Navy',price:450,category:'9FORTY',photo:'img_0049.jpg'},
+    {id:'nf11',name:'NY Mets Brooklyn',price:450,category:'9FORTY',photo:'img_0050.jpg'},
+    {id:'nf12',name:'NY Yankees Flames 2005',price:450,category:'9FORTY',photo:'img_0051.jpg'},
+    {id:'nf13',name:'OKC Thunder Champions',price:450,category:'9FORTY',photo:'img_0052.jpg'},
+    {id:'nf14',name:'Toronto Blue Jays Verde',price:450,category:'9FORTY',photo:'img_0053.jpg'},
+    {id:'nf15',name:'LA Dodgers Tan',price:450,category:'9FORTY',photo:'img_0054.jpg'},
+    {id:'nf16',name:'Chicago White Sox Sakura',price:450,category:'9FORTY',photo:'img_0055.jpg'}
+  ],
+  '59fifty': [
+    {id:'s7_1',name:'Blue Jays Black',price:500,category:'59FIFTY',photo:'img_0056.jpg',talla:'7'},
+    {id:'s7_2',name:'LA Dodgers Black',price:500,category:'59FIFTY',photo:'img_0057.jpg',talla:'7'},
+    {id:'s7_3',name:'Detroit Tigers Gold D',price:500,category:'59FIFTY',photo:'img_0058.jpg',talla:'7'},
+    {id:'s7_4',name:'LA Dodgers Red',price:500,category:'59FIFTY',photo:'img_0059.jpg',talla:'7'},
+    {id:'s7_5',name:'Fear of God M Navy',price:500,category:'59FIFTY',photo:'img_0060.jpg',talla:'7'},
+    {id:'s738_1',name:'Padres Brown Gold',price:500,category:'59FIFTY',photo:'img_0061.jpg',talla:'7 3/8'},
+    {id:'s738_2',name:'Fear of God F Black Gold',price:500,category:'59FIFTY',photo:'img_0062.jpg',talla:'7 3/8'},
+    {id:'s738_3',name:'LA Dodgers Camel Purple',price:500,category:'59FIFTY',photo:'img_0063.jpg',talla:'7 3/8'},
+    {id:'s738_4',name:'Pirates R Black Gold',price:500,category:'59FIFTY',photo:'img_0064.jpg',talla:'7 3/8'},
+    {id:'s738_5',name:'MLB All Teams Black',price:500,category:'59FIFTY',photo:'img_0065.jpg',talla:'7 3/8'},
+    {id:'s738_6',name:'Chicago Cubs Blue Champions',price:500,category:'59FIFTY',photo:'img_0066.jpg',talla:'7 3/8'},
+    {id:'s738_7',name:'MLB All Teams Camel',price:500,category:'59FIFTY',photo:'img_0067.jpg',talla:'7 3/8'},
+    {id:'s738_8',name:'LA Dodgers Black Gold',price:500,category:'59FIFTY',photo:'img_0068.jpg',talla:'7 3/8'},
+    {id:'s738_9',name:'Blue Jays Camel Black',price:500,category:'59FIFTY',photo:'img_0069.jpg',talla:'7 3/8'},
+    {id:'s738_10',name:'NY Yankees Stars Teal',price:500,category:'59FIFTY',photo:'img_0070.jpg',talla:'7 3/8'},
+    {id:'s738_11',name:'Anaheim Ducks Gray',price:500,category:'59FIFTY',photo:'img_0071.jpg',talla:'7 3/8'},
+    {id:'s738_12',name:'Born x Raised Mexico Black',price:500,category:'59FIFTY',photo:'img_0072.jpg',talla:'7 3/8'},
+    {id:'s738_13',name:'Atlanta Braves Camel Navy',price:500,category:'59FIFTY',photo:'img_0073.jpg',talla:'7 3/8'},
+    {id:'s738_14',name:'Chicago Cubs Black Red',price:500,category:'59FIFTY',photo:'img_0074.jpg',talla:'7 3/8'},
+    {id:'s738_15',name:'Mexico Cream Blue',price:500,category:'59FIFTY',photo:'img_0075.jpg',talla:'7 3/8'},
+    {id:'s738_16',name:'NY Yankees Black Flames',price:500,category:'59FIFTY',photo:'img_0076.jpg',talla:'7 3/8'},
+    {id:'s712_1',name:'Chicago Cubs Black Red 2',price:500,category:'59FIFTY',photo:'img_0077.jpg',talla:'7 1/2'},
+    {id:'s712_2',name:'Detroit Tigers Navy All-Star',price:500,category:'59FIFTY',photo:'img_0078.jpg',talla:'7 1/2'},
+    {id:'s712_3',name:'LA Dodgers White Blue',price:500,category:'59FIFTY',photo:'img_0079.jpg',talla:'7 1/2'},
+    {id:'sb_1',name:'Atlanta Braves Navy 1971',price:400,category:'59FIFTY',photo:'img_0080.jpg',tipo:'snapback'},
+    {id:'sb_2',name:'Angels Red Black 60th',price:400,category:'59FIFTY',photo:'img_0081.jpg',tipo:'snapback'},
+    {id:'sb_3',name:'White Sox Black Snapback',price:400,category:'59FIFTY',photo:'img_0082.jpg',tipo:'snapback'},
+    {id:'n1',name:'Blue Jays Chrome',price:500,category:'59FIFTY',photo:'img_0083.jpg',talla:'7 1/4'},
+    {id:'n2',name:'Nationals Angel Patch',price:500,category:'59FIFTY',photo:'img_0084.jpg',talla:'7 1/4'},
+    {id:'n3',name:'White Sox All-Star',price:500,category:'59FIFTY',photo:'img_0085.jpg',talla:'7 1/4'},
+    {id:'n4',name:'SF Giants World Series',price:500,category:'59FIFTY',photo:'img_0086.jpg',talla:'7 1/4'},
+    {id:'n5',name:'Indians World Series',price:500,category:'59FIFTY',photo:'img_0087.jpg',talla:'7 1/4'},
+    {id:'n6',name:'Born N La Red',price:500,category:'59FIFTY',photo:'img_0088.jpg',talla:'7 1/4'},
+    {id:'n7',name:'Yankees World Series',price:500,category:'59FIFTY',photo:'img_0089.jpg',talla:'7 1/4'},
+    {id:'n8',name:'MLB All Teams',price:500,category:'59FIFTY',photo:'img_0090.jpg',talla:'7 1/4'}
+  ],
+  otras: [
+    {id:'ot_1',name:'Stars Rhinestone Black',price:500,category:'OTRAS MARCAS',photo:'img_0091.jpg'},
+    {id:'ot_2',name:'LA Triple Black LV',price:500,category:'OTRAS MARCAS',photo:'img_0092.jpg'},
+    {id:'ot_3',name:'Dragon Premium Black',price:500,category:'OTRAS MARCAS',photo:'img_0093.jpg'}
+  ]
+};
 
 let PRODUCTS = {};
 
@@ -2181,8 +2307,10 @@ async function loadCatalog() {
     updateCartUI();
   } catch(err) {
     clearInterval(dotsInterval);
-    console.error('Error cargando catálogo:', err);
-    if (catsEl) catsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--sand);font-family:var(--font-body);font-size:1rem;">No se pudo cargar el catálogo.<br><small style="color:#aaa;word-break:break-all;">' + String(err) + '</small><br><br><button onclick="loadCatalog()" style="margin-top:16px;padding:12px 28px;background:var(--gold);color:#080608;border:none;border-radius:6px;font-family:var(--font-display);font-size:1rem;letter-spacing:0.1em;cursor:pointer;">REINTENTAR</button></div>';
+    console.warn('CSV no disponible, usando catálogo embebido:', err);
+    PRODUCTS = EMBEDDED_PRODUCTS;
+    renderCategories();
+    updateCartUI();
   }
 }
 
