@@ -1,5 +1,5 @@
 id,catId,name,price,category,photo,talla,tipo,tag,disponible
-b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true
+b1,barbas,BARBAS D ,600,BARBAS,img_0096.jpg,,,,true
 b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true
 b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true
 b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true
