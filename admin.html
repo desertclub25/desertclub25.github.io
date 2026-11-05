@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desert Club — Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;font-size:14px;min-height:100vh}
+
+/* Lock */
+#lockScreen{position:fixed;inset:0;background:#0d0d0d;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.lock-box{background:#161616;border:1px solid #2a2a2a;border-radius:16px;padding:36px 28px;max-width:380px;width:100%}
+.lock-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:#c8a84b;text-align:center;margin-bottom:4px}
+.lock-sub{color:#888;font-size:.82rem;text-align:center;margin-bottom:24px}
+.lock-label{font-size:.7rem;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;display:block}
+.lock-input{
+  width:100%;background:#111;border:1px solid #2a2a2a;color:#f0ede6;
+  padding:11px 14px;border-radius:8px;font-family:inherit;font-size:13px;margin-bottom:12px;
+}
+.lock-input:focus{outline:none;border-color:#c8a84b}
+.lock-btn{width:100%;background:#c8a84b;color:#000;border:none;padding:12px;border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.lock-btn:hover{opacity:.85}
+.lock-err{color:#e05555;font-size:.78rem;margin-top:8px;min-height:16px;text-align:center}
+.token-hint{
+  font-size:.72rem;color:#666;line-height:1.5;margin-bottom:10px;
+  background:#0d0d0d;border-radius:6px;padding:10px 12px;
+}
+.token-hint a{color:#c8a84b}
+.token-toggle{background:none;border:none;color:#888;font-size:.72rem;cursor:pointer;padding:0;margin-bottom:4px;text-decoration:underline}
+
+/* App */
+#app{display:none}
+.header{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 20px;border-bottom:1px solid #2a2a2a;flex-wrap:wrap;
+  position:sticky;top:0;background:#0d0d0d;z-index:10;
+}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:#c8a84b;line-height:1}
+.logo small{color:#888;font-size:.78rem;letter-spacing:.04em;display:block}
+.hbtns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:none;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;letter-spacing:.03em;white-space:nowrap}
+.btn:hover{opacity:.82}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-gold{background:#c8a84b;color:#000}
+.btn-ghost{background:transparent;color:#888;border:1px solid #2a2a2a}
+.btn-ghost:hover{color:#f0ede6;border-color:#888}
+.btn-green{background:#4caf78;color:#000}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* Save status bar */
+.save-bar{
+  display:flex;align-items:center;gap:10px;padding:10px 20px;
+  background:#161616;border-bottom:1px solid #2a2a2a;font-size:.8rem;
+}
+.save-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:#3a3a3a}
+.save-dot.dirty{background:#e09b2a}
+.save-dot.ok{background:#4caf78}
+.save-dot.saving{background:#c8a84b;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.save-txt{color:#888;flex:1}
+
+.main{padding:16px 20px}
+.hint{background:rgba(200,168,75,.07);border:1px solid rgba(200,168,75,.2);border-radius:8px;padding:11px 16px;margin-bottom:14px;font-size:.8rem;color:#888;line-height:1.6}
+.hint strong{color:#c8a84b}
+.add-zone{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px;background:#161616;border:1px solid #2a2a2a;border-radius:8px;margin-bottom:14px}
+.add-zone p{font-size:.82rem;color:#888;flex:1;min-width:0}
+.add-zone p strong{color:#c8a84b}
+
+.stats{display:flex;gap:20px;flex-wrap:wrap;padding:12px 20px;background:#161616;border-radius:8px;border:1px solid #2a2a2a;margin-bottom:14px}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#c8a84b;margin-right:4px}
+.stat-label{font-size:.72rem;color:#888;letter-spacing:.06em;text-transform:uppercase}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fbtn{padding:5px 14px;border-radius:20px;border:1px solid #2a2a2a;background:transparent;color:#888;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:.05em;transition:all .15s}
+.fbtn:hover{border-color:#8a7033;color:#f0ede6}
+.fbtn.on{background:#c8a84b;color:#000;border-color:#c8a84b}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+@media(max-width:540px){.grid{grid-template-columns:1fr 1fr;gap:10px}}
+
+.card{background:#1c1c1c;border-radius:10px;overflow:hidden;border:1.5px solid #2a2a2a;transition:border-color .2s}
+.card.ok{border-color:rgba(76,175,120,.4)}
+.card.bad{border-color:rgba(224,85,85,.25)}
+.card.isnew{border-color:rgba(200,168,75,.5)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#111}
+.card-body{padding:11px;display:flex;flex-direction:column;gap:7px}
+.card-fname{font-size:.68rem;color:#c8a84b;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;gap:4px}
+.card-fname span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del-btn{background:none;border:none;cursor:pointer;color:#3a3a3a;font-size:18px;line-height:1;padding:0 2px;transition:color .15s;flex-shrink:0}
+.del-btn:hover{color:#e05555}
+.fld{display:flex;flex-direction:column;gap:3px}
+.fld label{font-size:.62rem;color:#888;letter-spacing:.08em;text-transform:uppercase}
+.fld input,.fld select{background:#111;border:1px solid #2a2a2a;color:#f0ede6;padding:6px 8px;border-radius:5px;font-family:inherit;font-size:12px;width:100%}
+.fld input:focus,.fld select:focus{outline:none;border-color:#c8a84b}
+.fld select option{background:#1a1a1a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.status-line{display:flex;align-items:center;gap:5px;font-size:.65rem;letter-spacing:.05em}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+.empty{grid-column:1/-1;padding:40px 24px;text-align:center;color:#888}
+.empty h3{color:#f0ede6;margin-bottom:8px;font-size:1rem}
+
+/* Token setup modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:#1c1c1c;border:1px solid #2a2a2a;border-radius:12px;padding:24px;max-width:520px;width:100%;display:flex;flex-direction:column;gap:14px}
+.modal h3{font-family:'Bebas Neue',sans-serif;color:#c8a84b;letter-spacing:.06em;font-size:1.2rem}
+.modal p{font-size:.82rem;color:#888;line-height:1.6}
+.modal ol{font-size:.82rem;color:#888;line-height:2;padding-left:20px}
+.modal ol li strong{color:#f0ede6}
+.modal input{width:100%;background:#111;border:1px solid #2a2a2a;color:#f0ede6;padding:10px 14px;border-radius:8px;font-family:monospace;font-size:12px}
+.modal input:focus{outline:none;border-color:#c8a84b}
+.modal-row{display:flex;gap:8px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#c8a84b;color:#000;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:400;white-space:nowrap}
+.toast.show{opacity:1}
+.loading{text-align:center;padding:40px;color:#888}
+.spinner{width:32px;height:32px;border:3px solid #2a2a2a;border-top-color:#c8a84b;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- Lock screen -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-logo">🧢 Desert Club</div>
+    <div class="lock-sub">Panel de administración</div>
+    <label class="lock-label">Contraseña</label>
+    <input type="password" class="lock-input" id="pwInput" placeholder="••••••••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <div id="tokenSection" style="display:none">
+      <div class="token-hint">
+        🔑 <strong style="color:#f0ede6">Token de GitHub</strong> — solo la primera vez.<br>
+        Ve a <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a>,
+        escribe "Desert Club Admin", selecciona <strong style="color:#f0ede6">repo</strong> y copia el token.
+      </div>
+      <label class="lock-label">Token de GitHub (ghp_...)</label>
+      <input type="password" class="lock-input" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx">
+      <p style="font-size:.7rem;color:#666;margin-bottom:12px">Se guarda solo en tu navegador, nadie más lo ve.</p>
+    </div>
+    <button class="token-toggle" onclick="toggleToken()" id="tokenToggle">+ Configurar guardado automático a GitHub</button>
+    <button class="lock-btn" onclick="checkPw()">Entrar</button>
+    <div class="lock-err" id="lockErr"></div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <header class="header">
+    <div class="logo">Desert Club <small>Admin · Catálogo</small></div>
+    <div class="hbtns">
+      <button class="btn btn-ghost btn-sm" onclick="reloadCatalog()">🔄 Recargar</button>
+      <button class="btn btn-ghost btn-sm" onclick="showTokenSetup()">🔑 Token</button>
+      <button class="btn btn-green" id="btnSave" onclick="saveToGitHub()">💾 Guardar en GitHub</button>
+    </div>
+  </header>
+
+  <!-- Save status bar -->
+  <div class="save-bar" id="saveBar">
+    <div class="dot" id="saveDot"></div>
+    <span class="save-txt" id="saveTxt">Sin cambios</span>
+    <span style="font-size:.72rem;color:#555" id="saveToken">Sin token configurado — los cambios no se guardarán automáticamente</span>
+  </div>
+
+  <div class="main">
+    <div class="hint" id="hintNext">Cargando catálogo...</div>
+
+    <div class="add-zone">
+      <svg width="20" height="20" fill="none" stroke="#8a7033" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+      <p><strong>Agregar fotos nuevas</strong> — sube las imágenes con cualquier nombre</p>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('photoInput').click()">📷 Subir fotos</button>
+    </div>
+
+    <div class="stats">
+      <div><span class="stat-num" id="sTot">—</span><span class="stat-label">productos</span></div>
+      <div><span class="stat-num" id="sCom">—</span><span class="stat-label">completos</span></div>
+      <div><span class="stat-num" id="sPen">—</span><span class="stat-label">pendientes</span></div>
+    </div>
+
+    <div class="filters">
+      <button class="fbtn on" data-f="todas">TODAS</button>
+      <button class="fbtn" data-f="pendientes">⚠ PENDIENTES</button>
+      <button class="fbtn" data-f="dandy">DANDY</button>
+      <button class="fbtn" data-f="31hats">31 HATS</button>
+      <button class="fbtn" data-f="rude">RUDE</button>
+      <button class="fbtn" data-f="placa">PLACA</button>
+      <button class="fbtn" data-f="9forty">9FORTY</button>
+      <button class="fbtn" data-f="59fifty">59FIFTY</button>
+      <button class="fbtn" data-f="otras">OTRAS</button>
+      <button class="fbtn" data-f="barbas">BARBAS</button>
+    </div>
+
+    <div id="gridWrap">
+      <div class="loading"><div class="spinner"></div>Cargando catálogo...</div>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+<div class="toast" id="toast"></div>
+
+<script>
+var PASS = 'Desertclub2025';
+var OWNER = 'desertclub25';
+var REPO  = 'github.io';
+var CSV_PATH = 'catalog.csv';
+
+var products = [];
+var localPhotos = {};
+var filter = 'todas';
+var uidSeq = 0;
+var csvSha = '';    // current SHA of catalog.csv on GitHub
+var isDirty = false;
+
+var CATS = [
+  {id:'dandy',   lbl:'DANDY',           px:600},
+  {id:'31hats',  lbl:'31 HATS',         px:550},
+  {id:'rude',    lbl:'RUDE AWAKENINGS', px:600},
+  {id:'placa',   lbl:'PLACA ABS',       px:380},
+  {id:'9forty',  lbl:'9FORTY',          px:450},
+  {id:'59fifty', lbl:'59FIFTY',         px:500},
+  {id:'otras',   lbl:'OTRAS MARCAS',    px:500},
+  {id:'barbas',  lbl:'BARBAS',          px:600},
+];
+var CAT_LBL={}, CAT_PX={};
+CATS.forEach(function(c){ CAT_LBL[c.id]=c.lbl; CAT_PX[c.id]=c.px; });
+
+// ── Token storage ──
+function getToken(){ try{ return localStorage.getItem('dc_ghtoken')||''; }catch(e){ return ''; } }
+function setToken(t){ try{ localStorage.setItem('dc_ghtoken',t); }catch(e){} }
+
+function toggleToken(){
+  var s = document.getElementById('tokenSection');
+  var btn = document.getElementById('tokenToggle');
+  if(s.style.display==='none'){
+    s.style.display='block';
+    btn.textContent='− Ocultar';
+    // Pre-fill if saved
+    var t=getToken(); if(t) document.getElementById('tokenInput').value=t;
+  } else {
+    s.style.display='none';
+    btn.textContent='+ Configurar guardado automático a GitHub';
+  }
+}
+
+// ── Password ──
+function checkPw(){
+  var pw = document.getElementById('pwInput').value;
+  if(pw !== PASS){ document.getElementById('lockErr').textContent='Contraseña incorrecta'; document.getElementById('pwInput').value=''; return; }
+  // Save token if entered
+  var tkIn = document.getElementById('tokenInput');
+  if(tkIn.value.trim()) setToken(tkIn.value.trim());
+  document.getElementById('lockScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  updateTokenStatus();
+  loadCatalogCSV();
+}
+
+function updateTokenStatus(){
+  var t=getToken();
+  var el=document.getElementById('saveToken');
+  if(t){ el.textContent='🟢 Token configurado — clic en "Guardar en GitHub" para publicar cambios'; el.style.color='#4caf78'; }
+  else { el.textContent='⚠ Sin token — configura uno para guardar directo a GitHub'; el.style.color='#e09b2a'; }
+}
+
+function markDirty(){
+  isDirty=true;
+  document.getElementById('saveDot').className='dot dirty';
+  document.getElementById('saveTxt').textContent='Tienes cambios sin guardar';
+}
+function markClean(){
+  isDirty=false;
+  document.getElementById('saveDot').className='dot ok';
+  document.getElementById('saveTxt').textContent='Guardado ✓';
+}
+function markSaving(){
+  document.getElementById('saveDot').className='dot saving';
+  document.getElementById('saveTxt').textContent='Guardando en GitHub...';
+}
+
+// ── Load catalog.csv (from same origin + get SHA from API) ──
+function loadCatalogCSV(){
+  document.getElementById('gridWrap').innerHTML='<div class="loading"><div class="spinner"></div>Cargando catálogo...</div>';
+  // Fetch CSV content for display
+  fetch('catalog.csv?t='+Date.now())
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+    .then(function(text){ parseCSV(text); })
+    .catch(function(err){
+      document.getElementById('gridWrap').innerHTML='<div class="empty"><h3>No se pudo cargar catalog.csv</h3><p>'+err.message+'</p></div>';
+    });
+  // Get SHA from GitHub API (needed to update file later)
+  var t=getToken();
+  if(t){
+    fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+CSV_PATH, {
+      headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}
+    }).then(function(r){ return r.json(); })
+      .then(function(d){ if(d.sha) csvSha=d.sha; })
+      .catch(function(){});
+  }
+}
+
+function reloadCatalog(){ loadCatalogCSV(); }
+
+function parseCSV(text){
+  var lines=text.trim().split(/\r?\n/);
+  if(lines.length<2) return;
+  var headers=splitCSV(lines[0].replace(/^﻿/,''));
+  var newProds=[];
+  for(var i=1;i<lines.length;i++){
+    var line=lines[i].trim(); if(!line) continue;
+    var vals=splitCSV(line);
+    var row={};
+    headers.forEach(function(h,j){ row[h.trim()]=(vals[j]||'').trim().replace(/^"|"$/g,''); });
+    if(!row.photo) continue;
+    uidSeq++;
+    newProds.push({uid:'p'+uidSeq,source:'csv',id:row.id||'',catId:row.catId||'',name:row.name||'',price:row.price||'',category:row.category||'',photo:row.photo,talla:row.talla||'',tipo:row.tipo||'',tag:row.tag||'',disponible:row.disponible||'true'});
+  }
+  var localOnly=products.filter(function(p){ return p.source==='local'; });
+  products=newProds.concat(localOnly);
+  updateHint(); renderGrid();
+  document.getElementById('saveDot').className='dot ok';
+  document.getElementById('saveTxt').textContent=newProds.length+' productos cargados';
+  toast('✅ '+newProds.length+' productos');
+}
+
+function splitCSV(line){
+  var r=[],cur='',inQ=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
+    if(c==='"'){inQ=!inQ;}
+    else if(c===','&&!inQ){r.push(cur);cur='';}
+    else{cur+=c;}
+  }
+  r.push(cur); return r;
+}
+
+function updateHint(){
+  var ids=products.map(function(p){return parseInt(p.id)||0;});
+  var mx=ids.length?Math.max.apply(null,ids):115;
+  var nxt=mx+1;
+  document.getElementById('hintNext').innerHTML=
+    'Siguiente número disponible: <strong>'+nxt+'</strong> → próxima foto: <strong>img_'+String(nxt).padStart(4,'0')+'.jpg</strong>';
+}
+
+// ── Add local photos ──
+document.getElementById('photoInput').addEventListener('change',function(e){
+  handleFiles(Array.from(e.target.files));
+  e.target.value='';
+});
+document.addEventListener('dragover',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){
+  e.preventDefault();
+  var files=Array.from(e.dataTransfer.files).filter(function(f){return f.type.startsWith('image/');});
+  if(files.length) handleFiles(files);
+});
+
+function handleFiles(files){
+  var pending=files.length;
+  files.forEach(function(file){
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      localPhotos[file.name]=ev.target.result;
+      var ex=products.find(function(p){return p.photo===file.name;});
+      if(!ex){ uidSeq++; products.push({uid:'p'+uidSeq,source:'local',id:'',catId:'',name:'',price:'',category:'',photo:file.name,talla:'',tipo:'',tag:'',disponible:'true'}); }
+      pending--; if(!pending){updateHint();renderGrid();markDirty();}
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Filters
+document.querySelector('.filters').addEventListener('click',function(e){
+  var btn=e.target.closest('.fbtn'); if(!btn) return;
+  filter=btn.dataset.f;
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on'); renderGrid();
+});
+
+// ── Render ──
+function renderGrid(){
+  var complete=products.filter(function(p){return p.name&&p.catId&&p.price;});
+  document.getElementById('sTot').textContent=products.length;
+  document.getElementById('sCom').textContent=complete.length;
+  document.getElementById('sPen').textContent=products.length-complete.length;
+
+  var visible=products.filter(function(p){
+    if(filter==='todas') return true;
+    if(filter==='pendientes') return !(p.name&&p.catId&&p.price);
+    return p.catId===filter;
+  });
+
+  var grid=document.createElement('div');
+  grid.className='grid';
+  if(visible.length===0){
+    grid.innerHTML='<div class="empty"><h3>No hay productos aquí</h3></div>';
+  } else {
+    visible.forEach(function(p){grid.appendChild(makeCard(p));});
+  }
+  var wrap=document.getElementById('gridWrap');
+  wrap.innerHTML=''; wrap.appendChild(grid);
+  grid.addEventListener('input',onFieldInput);
+  grid.addEventListener('click',onGridClick);
+}
+
+function makeCard(p){
+  var ok=!!(p.name&&p.catId&&p.price);
+  var div=document.createElement('div');
+  div.className='card '+(p.source==='local'?'isnew':(ok?'ok':'bad'));
+  div.dataset.uid=p.uid;
+  var imgSrc=localPhotos[p.photo]||p.photo;
+  var opts='<option value="">— elige —</option>';
+  CATS.forEach(function(c){opts+='<option value="'+c.id+'"'+(p.catId===c.id?' selected':'')+'>'+c.lbl+'</option>';});
+  div.innerHTML=
+    '<img src="'+imgSrc+'" alt="'+esc(p.photo)+'" loading="lazy" onerror="this.style.opacity=\'.15\'">'+
+    '<div class="card-body">'+
+      '<div class="card-fname"><span title="'+esc(p.photo)+'">'+esc(p.photo)+'</span>'+
+        '<button class="del-btn" data-uid="'+p.uid+'">×</button></div>'+
+      '<div class="fld"><label>Nombre</label>'+
+        '<input type="text" value="'+esc(p.name)+'" placeholder="ej. LA Dodgers Black" data-uid="'+p.uid+'" data-fld="name"></div>'+
+      '<div class="fld"><label>Categoría</label>'+
+        '<select data-uid="'+p.uid+'" data-fld="catId">'+opts+'</select></div>'+
+      '<div class="row2">'+
+        '<div class="fld"><label>Precio $</label>'+
+          '<input type="number" value="'+esc(p.price)+'" placeholder="600" data-uid="'+p.uid+'" data-fld="price"></div>'+
+        '<div class="fld"><label>Talla</label>'+
+          '<input type="text" value="'+esc(p.talla)+'" placeholder="7 3/8" data-uid="'+p.uid+'" data-fld="talla"></div></div>'+
+      '<div class="row2">'+
+        '<div class="fld"><label>Tipo</label>'+
+          '<input type="text" value="'+esc(p.tipo)+'" placeholder="snapback" data-uid="'+p.uid+'" data-fld="tipo"></div>'+
+        '<div class="fld"><label>ID / #foto</label>'+
+          '<input type="text" value="'+esc(p.id)+'" placeholder="116" data-uid="'+p.uid+'" data-fld="id"></div></div>'+
+      '<div class="status-line">'+
+        '<span class="dot" style="background:'+(ok?'#4caf78':'#e05555')+'"></span>'+
+        '<span style="color:'+(ok?'#4caf78':'#e05555')+'">'+(ok?'COMPLETO':'FALTA INFO')+'</span>'+
+        (p.source==='local'?'<span style="color:#c8a84b;margin-left:auto;font-size:.6rem">📷 NUEVO</span>':'')+
+      '</div></div>';
+  return div;
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+function onFieldInput(e){
+  var el=e.target;
+  if(!el.dataset.uid||!el.dataset.fld) return;
+  var p=products.find(function(x){return x.uid===el.dataset.uid;});
+  if(!p) return;
+  p[el.dataset.fld]=el.value;
+  if(el.dataset.fld==='catId'){
+    p.category=CAT_LBL[el.value]||'';
+    if(!p.price&&el.value){ p.price=String(CAT_PX[el.value]||''); var card=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]'); if(card){var pi=card.querySelector('[data-fld="price"]');if(pi&&!pi.value)pi.value=p.price;} }
+  }
+  var ok=!!(p.name&&p.catId&&p.price);
+  var card=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]');
+  if(card){
+    if(p.source!=='local') card.className='card '+(ok?'ok':'bad');
+    var dot=card.querySelector('.dot'); var stxt=card.querySelector('.status-line span:nth-child(2)');
+    if(dot) dot.style.background=ok?'#4caf78':'#e05555';
+    if(stxt){stxt.style.color=ok?'#4caf78':'#e05555';stxt.textContent=ok?'COMPLETO':'FALTA INFO';}
+  }
+  var c=products.filter(function(ph){return ph.name&&ph.catId&&ph.price;});
+  document.getElementById('sCom').textContent=c.length;
+  document.getElementById('sPen').textContent=products.length-c.length;
+  markDirty();
+}
+
+function onGridClick(e){
+  var btn=e.target.closest('.del-btn'); if(!btn) return;
+  products=products.filter(function(p){return p.uid!==btn.dataset.uid;});
+  renderGrid(); markDirty();
+}
+
+// ── Build CSV string ──
+function buildCSV(){
+  var CAT_ORDER=CATS.map(function(c){return c.id;});
+  var arr=products.slice().sort(function(a,b){
+    var ca=CAT_ORDER.indexOf(a.catId),cb=CAT_ORDER.indexOf(b.catId);
+    if(ca!==cb) return (ca<0?999:ca)-(cb<0?999:cb);
+    return (parseInt(a.id)||0)-(parseInt(b.id)||0);
+  });
+  var hdr='id,catId,name,price,category,photo,talla,tipo,tag,disponible';
+  var lines=arr.map(function(r){
+    return [r.id,r.catId,cv(r.name),r.price,cv(r.category),r.photo,r.talla,r.tipo,r.tag||'',r.disponible||'true'].join(',');
+  });
+  return hdr+'\n'+lines.join('\n')+'\n';
+}
+function cv(v){if(!v)return'';if(v.indexOf(',')>=0||v.indexOf('"')>=0)return'"'+v.replace(/"/g,'""')+'"';return v;}
+
+// ── Save to GitHub ──
+function saveToGitHub(){
+  var t=getToken();
+  if(!t){ showTokenSetup(); return; }
+  markSaving();
+  var csv=buildCSV();
+  var b64=btoa(unescape(encodeURIComponent(csv)));
+  var body={message:'Actualizar catálogo desde Admin — '+(new Date().toLocaleString('es-MX')),content:b64};
+  if(csvSha) body.sha=csvSha;
+  fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+CSV_PATH,{
+    method:'PUT',
+    headers:{
+      'Authorization':'token '+t,
+      'Accept':'application/vnd.github.v3+json',
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(body)
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(d.content&&d.content.sha){ csvSha=d.content.sha; markClean(); toast('✅ Catálogo guardado en GitHub'); }
+    else if(d.message){ markDirty(); toast('⚠ Error: '+d.message); }
+  })
+  .catch(function(err){ markDirty(); toast('⚠ Error de red: '+err.message); });
+}
+
+// ── Token setup modal ──
+function showTokenSetup(){
+  var overlay=document.createElement('div');
+  overlay.className='overlay';
+  overlay.innerHTML=
+    '<div class="modal">'+
+      '<h3>🔑 Configurar Token de GitHub</h3>'+
+      '<p>Necesitas un token para guardar cambios directo a GitHub sin descargar archivos.</p>'+
+      '<ol>'+
+        '<li>Ve a <a href="https://github.com/settings/tokens/new" target="_blank" style="color:#c8a84b">github.com/settings/tokens/new</a></li>'+
+        '<li>Nombre: <strong>Desert Club Admin</strong></li>'+
+        '<li>Selecciona el permiso <strong>repo</strong></li>'+
+        '<li>Haz clic en <strong>Generate token</strong> y copia el token</li>'+
+      '</ol>'+
+      '<input type="text" id="newTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxx">'+
+      '<div class="modal-row">'+
+        '<button class="btn btn-gold" id="saveTokenBtn" style="flex:1">Guardar token</button>'+
+        '<button class="btn btn-ghost" id="closeTokenBtn">Cancelar</button>'+
+      '</div>'+
+    '</div>';
+  document.body.appendChild(overlay);
+  overlay.querySelector('#closeTokenBtn').onclick=function(){overlay.remove();};
+  overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.remove();});
+  overlay.querySelector('#saveTokenBtn').addEventListener('click',function(){
+    var v=overlay.querySelector('#newTokenInput').value.trim();
+    if(!v){toast('⚠ Pega el token primero');return;}
+    setToken(v); overlay.remove(); updateTokenStatus();
+    // Re-fetch SHA now that we have a token
+    fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+CSV_PATH,{
+      headers:{'Authorization':'token '+v,'Accept':'application/vnd.github.v3+json'}
+    }).then(function(r){return r.json();}).then(function(d){if(d.sha)csvSha=d.sha;}).catch(function(){});
+    toast('✅ Token guardado — ya puedes guardar cambios');
+  });
+}
+
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+</script>
+</body>
+</html>
