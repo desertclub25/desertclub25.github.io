@@ -30,7 +30,6 @@ pa4,placa,Black Horse Red,380,PLACA ABS,img_0028.jpg,,,,true
 pa5,placa,627 Star Tan,380,PLACA ABS,img_0029.jpg,,,,true
 pa6,placa,Fighting Roosters,380,PLACA ABS,img_0030.jpg,,,,true
 pa7,placa,Four Aces,380,PLACA ABS,img_0031.jpg,,,,true
-pa8,placa,Four Leaf Clover,380,PLACA ABS,img_0032.jpg,,,,true
 pa9,placa,Gold Rooster Navy,380,PLACA ABS,img_0033.jpg,,,,true
 pa10,placa,Gold Tractor,380,PLACA ABS,img_0034.jpg,,,,true
 pa11,placa,727 Airplane Gold,380,PLACA ABS,img_0035.jpg,,,,true
@@ -54,6 +53,7 @@ nf13,9forty,OKC Thunder Champions,450,9FORTY,img_0052.jpg,,,,true
 nf14,9forty,Toronto Blue Jays Verde,450,9FORTY,img_0053.jpg,,,,true
 nf15,9forty,LA Dodgers Tan,450,9FORTY,img_0054.jpg,,,,true
 nf16,9forty,Chicago White Sox Sakura,450,9FORTY,img_0055.jpg,,,,true
+img_0032.jpg,59fifty,TORONTO,500,59FIFTY,img_0032.jpg,71/4,,,true
 s7_1,59fifty,Blue Jays Black,500,59FIFTY,img_0056.jpg,7,,,true
 s7_2,59fifty,LA Dodgers Black,500,59FIFTY,img_0057.jpg,7,,,true
 s7_3,59fifty,Detroit Tigers Gold D,500,59FIFTY,img_0058.jpg,7,,,true
@@ -89,7 +89,6 @@ n5,59fifty,Indians World Series,500,59FIFTY,img_0087.jpg,7 1/4,,,true
 n6,59fifty,Born N La Red,500,59FIFTY,img_0088.jpg,7 1/4,,,true
 n7,59fifty,Yankees World Series,500,59FIFTY,img_0089.jpg,7 1/4,,,true
 n8,59fifty,MLB All Teams,500,59FIFTY,img_0090.jpg,7 1/4,,,true
-2.000.jpg,59fifty,TORONTO,500,59FIFTY,2.000.jpg,71/4,,,true
 ot_1,otras,Stars Rhinestone Black,500,OTRAS MARCAS,img_0091.jpg,,,,true
 ot_2,otras,LA Triple Black LV,500,OTRAS MARCAS,img_0092.jpg,,,,true
 ot_3,otras,Dragon Premium Black,500,OTRAS MARCAS,img_0093.jpg,,,,true
