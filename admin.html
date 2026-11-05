@@ -356,8 +356,12 @@ document.addEventListener('drop',function(e){
 });
 
 function nextPhotoNumber(){
-  var ids=products.map(function(p){return parseInt(p.id)||0;});
-  return (ids.length?Math.max.apply(null,ids):115)+1;
+  // Use photo filenames (img_XXXX.jpg) to find the real next number
+  var nums=products.map(function(p){
+    var m=p.photo&&p.photo.match(/img_0*(\d+)\.jpg$/i);
+    return m?parseInt(m[1]):0;
+  });
+  return (nums.length?Math.max.apply(null,nums):115)+1;
 }
 function padNum(n){ return 'img_'+String(n).padStart(4,'0')+'.jpg'; }
 
