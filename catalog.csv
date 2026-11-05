@@ -1,7 +1,7 @@
 id,catId,name,price,category,photo,talla,tipo,tag,disponible
-nd1,dandy,LA Daddy ,600,DANDY,img_0001.jpg,,,,true
+nd1,dandy,LA Daddy,600,DANDY,img_0001.jpg,,,,true
 nd2,dandy,Fuerza Regida,600,DANDY,img_0002.jpg,,,,true
-nd3,dandy,AWAKENINGS ,600,DANDY,img_0003.jpg,,,,true
+nd3,dandy,AWAKENINGS,600,DANDY,img_0003.jpg,,,,true
 nd4,dandy,DANDY COLORS,600,DANDY,img_0004.jpg,,,,true
 nd5,dandy,Canelo Undisputed,600,DANDY,img_0005.jpg,,,,true
 nd6,dandy,Houston Astros Pink,600,DANDY,img_0006.jpg,,,,true
