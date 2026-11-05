@@ -499,7 +499,7 @@ function uploadPhotoToGitHub(filename, dataUrl, token){
     message: 'Agregar foto '+filename+' desde Admin',
     content: b64
   };
-  return fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/images/'+filename,{
+  return fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+filename,{
     method:'PUT',
     headers:{
       'Authorization':'token '+token,
