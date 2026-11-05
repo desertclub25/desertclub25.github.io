@@ -355,15 +355,26 @@ document.addEventListener('drop',function(e){
   if(files.length) handleFiles(files);
 });
 
+function nextPhotoNumber(){
+  var ids=products.map(function(p){return parseInt(p.id)||0;});
+  return (ids.length?Math.max.apply(null,ids):115)+1;
+}
+function padNum(n){ return 'img_'+String(n).padStart(4,'0')+'.jpg'; }
+
 function handleFiles(files){
   var pending=files.length;
-  files.forEach(function(file){
+  var nextNum=nextPhotoNumber();
+  files.forEach(function(file,i){
+    var newName=padNum(nextNum+i);
     var reader=new FileReader();
     reader.onload=function(ev){
-      localPhotos[file.name]=ev.target.result;
-      var ex=products.find(function(p){return p.photo===file.name;});
-      if(!ex){ uidSeq++; products.push({uid:'p'+uidSeq,source:'local',id:'',catId:'',name:'',price:'',category:'',photo:file.name,talla:'',tipo:'',tag:'',disponible:'true'}); }
-      pending--; if(!pending){updateHint();renderGrid();markDirty();}
+      localPhotos[newName]=ev.target.result;
+      var ex=products.find(function(p){return p.photo===newName;});
+      if(!ex){
+        uidSeq++;
+        products.push({uid:'p'+uidSeq,source:'local',id:String(nextNum+i),catId:'',name:'',price:'',category:'',photo:newName,talla:'',tipo:'',tag:'',disponible:'true'});
+      }
+      pending--; if(!pending){updateHint();renderGrid();markDirty();toast('📷 Foto renombrada a '+newName);}
     };
     reader.readAsDataURL(file);
   });
