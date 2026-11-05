@@ -279,6 +279,8 @@ function markSaving(){
   document.getElementById('saveTxt').textContent='Guardando en GitHub...';
 }
 
+var maxRepoPhotoNum = 115; // fallback; updated from GitHub API
+
 // ── Load catalog.csv (from same origin + get SHA from API) ──
 function loadCatalogCSV(){
   document.getElementById('gridWrap').innerHTML='<div class="loading"><div class="spinner"></div>Cargando catálogo...</div>';
@@ -289,7 +291,7 @@ function loadCatalogCSV(){
     .catch(function(err){
       document.getElementById('gridWrap').innerHTML='<div class="empty"><h3>No se pudo cargar catalog.csv</h3><p>'+err.message+'</p></div>';
     });
-  // Get SHA from GitHub API (needed to update file later)
+  // Get CSV SHA + scan repo for highest img number
   var t=getToken();
   if(t){
     fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+CSV_PATH, {
@@ -297,6 +299,19 @@ function loadCatalogCSV(){
     }).then(function(r){ return r.json(); })
       .then(function(d){ if(d.sha) csvSha=d.sha; })
       .catch(function(){});
+    // List repo root to find highest img_XXXX.jpg number
+    fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/', {
+      headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}
+    }).then(function(r){ return r.json(); })
+      .then(function(files){
+        if(!Array.isArray(files)) return;
+        var max=0;
+        files.forEach(function(f){
+          var m=f.name.match(/^img_0*(\d+)\.jpg$/i);
+          if(m){ var n=parseInt(m[1]); if(n>max) max=n; }
+        });
+        if(max>0) maxRepoPhotoNum=max;
+      }).catch(function(){});
   }
 }
 
@@ -356,12 +371,13 @@ document.addEventListener('drop',function(e){
 });
 
 function nextPhotoNumber(){
-  // Use photo filenames (img_XXXX.jpg) to find the real next number
+  // Use the highest number from: repo files (API scan) + local product photos
   var nums=products.map(function(p){
     var m=p.photo&&p.photo.match(/img_0*(\d+)\.jpg$/i);
     return m?parseInt(m[1]):0;
   });
-  return (nums.length?Math.max.apply(null,nums):115)+1;
+  nums.push(maxRepoPhotoNum);
+  return Math.max.apply(null,nums)+1;
 }
 function padNum(n){ return 'img_'+String(n).padStart(4,'0')+'.jpg'; }
 
@@ -508,21 +524,17 @@ function cv(v){if(!v)return'';if(v.indexOf(',')>=0||v.indexOf('"')>=0)return'"'+
 
 // ── Upload photo to GitHub ──
 function uploadPhotoToGitHub(filename, dataUrl, token){
-  // Convert data URL to base64
   var b64 = dataUrl.split(',')[1];
-  var body = {
-    message: 'Agregar foto '+filename+' desde Admin',
-    content: b64
-  };
-  return fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+filename,{
-    method:'PUT',
-    headers:{
-      'Authorization':'token '+token,
-      'Accept':'application/vnd.github.v3+json',
-      'Content-Type':'application/json'
-    },
-    body:JSON.stringify(body)
-  }).then(function(r){ return r.json(); });
+  var apiUrl = 'https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+filename;
+  var headers = {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+  // Check if file already exists (need SHA to overwrite)
+  return fetch(apiUrl,{headers:headers})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(existing){
+      var body={message:'Agregar foto '+filename+' desde Admin',content:b64};
+      if(existing&&existing.sha) body.sha=existing.sha;
+      return fetch(apiUrl,{method:'PUT',headers:headers,body:JSON.stringify(body)});
+    }).then(function(r){ return r.json(); });
 }
 
 // ── Save to GitHub ──
