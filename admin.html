@@ -491,11 +491,55 @@ function buildCSV(){
 }
 function cv(v){if(!v)return'';if(v.indexOf(',')>=0||v.indexOf('"')>=0)return'"'+v.replace(/"/g,'""')+'"';return v;}
 
+// ── Upload photo to GitHub ──
+function uploadPhotoToGitHub(filename, dataUrl, token){
+  // Convert data URL to base64
+  var b64 = dataUrl.split(',')[1];
+  var body = {
+    message: 'Agregar foto '+filename+' desde Admin',
+    content: b64
+  };
+  return fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/images/'+filename,{
+    method:'PUT',
+    headers:{
+      'Authorization':'token '+token,
+      'Accept':'application/vnd.github.v3+json',
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(body)
+  }).then(function(r){ return r.json(); });
+}
+
 // ── Save to GitHub ──
 function saveToGitHub(){
   var t=getToken();
   if(!t){ showTokenSetup(); return; }
   markSaving();
+
+  // Find local photos that need uploading
+  var newPhotos=products.filter(function(p){ return p.source==='local' && localPhotos[p.photo]; });
+
+  if(newPhotos.length===0){
+    // No new photos — just save CSV
+    saveCSV(t);
+    return;
+  }
+
+  // Upload all new photos first
+  document.getElementById('saveTxt').textContent='Subiendo '+newPhotos.length+' foto(s) a GitHub...';
+  var uploads=newPhotos.map(function(p){
+    return uploadPhotoToGitHub(p.photo, localPhotos[p.photo], t)
+      .then(function(d){
+        if(d.content){ p.source='csv'; delete localPhotos[p.photo]; toast('📷 '+p.photo+' subida'); }
+        else if(d.message){ toast('⚠ Foto '+p.photo+': '+d.message); }
+      });
+  });
+
+  Promise.all(uploads).then(function(){ saveCSV(t); });
+}
+
+function saveCSV(t){
+  document.getElementById('saveTxt').textContent='Guardando catálogo...';
   var csv=buildCSV();
   var b64=btoa(unescape(encodeURIComponent(csv)));
   var body={message:'Actualizar catálogo desde Admin — '+(new Date().toLocaleString('es-MX')),content:b64};
@@ -511,7 +555,7 @@ function saveToGitHub(){
   })
   .then(function(r){ return r.json(); })
   .then(function(d){
-    if(d.content&&d.content.sha){ csvSha=d.content.sha; markClean(); toast('✅ Catálogo guardado en GitHub'); }
+    if(d.content&&d.content.sha){ csvSha=d.content.sha; markClean(); renderGrid(); toast('✅ Todo guardado en GitHub'); }
     else if(d.message){ markDirty(); toast('⚠ Error: '+d.message); }
   })
   .catch(function(err){ markDirty(); toast('⚠ Error de red: '+err.message); });
