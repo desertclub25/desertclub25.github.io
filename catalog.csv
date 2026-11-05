@@ -1,16 +1,4 @@
 id,catId,name,price,category,photo,talla,tipo,tag,disponible
-b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true
-b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true
-b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true
-b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true
-b5,barbas,BARBAS SNAKE GOLD,600,BARBAS,img_0100.jpg,,,,true
-b6,barbas,BARBAS CROSSES,600,BARBAS,img_0101.jpg,,,,true
-b7,barbas,BARBAS BH,600,BARBAS,img_0102.jpg,,,,true
-b8,barbas,BARBAS MOON,600,BARBAS,img_0103.jpg,,,,true
-b9,barbas,BARBAS SNAKE CROSS,600,BARBAS,img_0104.jpg,,,,true
-b10,barbas,BARBAS ETERNO,600,BARBAS,img_0105.jpg,,,,true
-b11,barbas,BARBAS SUN,600,BARBAS,img_0106.jpg,,,,true
-b12,barbas,BARBAS RICH FOREVER,600,BARBAS,img_0107.jpg,,,,true
 nd1,dandy,LA Daddy Paisley,600,DANDY,img_0001.jpg,,,,true
 nd2,dandy,Fuerza Regida,600,DANDY,img_0002.jpg,,,,true
 nd3,dandy,AWAK Jesus,600,DANDY,img_0003.jpg,,,,true
@@ -104,3 +92,15 @@ n8,59fifty,MLB All Teams,500,59FIFTY,img_0090.jpg,7 1/4,,,true
 ot_1,otras,Stars Rhinestone Black,500,OTRAS MARCAS,img_0091.jpg,,,,true
 ot_2,otras,LA Triple Black LV,500,OTRAS MARCAS,img_0092.jpg,,,,true
 ot_3,otras,Dragon Premium Black,500,OTRAS MARCAS,img_0093.jpg,,,,true
+b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true
+b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true
+b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true
+b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true
+b5,barbas,BARBAS SNAKE GOLD,600,BARBAS,img_0100.jpg,,,,true
+b6,barbas,BARBAS CROSSES,600,BARBAS,img_0101.jpg,,,,true
+b7,barbas,BARBAS BH,600,BARBAS,img_0102.jpg,,,,true
+b8,barbas,BARBAS MOON,600,BARBAS,img_0103.jpg,,,,true
+b9,barbas,BARBAS SNAKE CROSS,600,BARBAS,img_0104.jpg,,,,true
+b10,barbas,BARBAS ETERNO,600,BARBAS,img_0105.jpg,,,,true
+b11,barbas,BARBAS SUN,600,BARBAS,img_0106.jpg,,,,true
+b12,barbas,BARBAS RICH FOREVER,600,BARBAS,img_0107.jpg,,,,true
