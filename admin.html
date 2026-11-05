@@ -424,7 +424,12 @@ function makeCard(p){
         '<div class="fld"><label>Precio $</label>'+
           '<input type="number" value="'+esc(p.price)+'" placeholder="600" data-uid="'+p.uid+'" data-fld="price"></div>'+
         '<div class="fld"><label>Talla</label>'+
-          '<input type="text" value="'+esc(p.talla)+'" placeholder="7 3/8" data-uid="'+p.uid+'" data-fld="talla"></div></div>'+
+          (p.catId==='59fifty'
+            ? '<select data-uid="'+p.uid+'" data-fld="talla"><option value="">— talla —</option>'+
+              ['Niño','Snapback','7','7 1/8','7 1/4','7 3/8','7 1/2'].map(function(s){return'<option value="'+s+'"'+(p.talla===s?' selected':'')+'>'+s+'</option>';}).join('')+
+              '</select>'
+            : '<input type="text" value="'+esc(p.talla)+'" placeholder="7 3/8" data-uid="'+p.uid+'" data-fld="talla">'
+          )+'</div></div>'+
       '<div class="row2">'+
         '<div class="fld"><label>Tipo</label>'+
           '<input type="text" value="'+esc(p.tipo)+'" placeholder="snapback" data-uid="'+p.uid+'" data-fld="tipo"></div>'+
