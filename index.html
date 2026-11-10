@@ -2300,6 +2300,8 @@ async function loadCatalog() {
       if (tipo)   prod.tipo  = tipo;
       if (tag)    prod.tag   = tag;
       if (disp === 'false' || disp === 'no') prod._unavailable = true;
+      const stock = get('stock');
+      if (stock !== '' && stock !== undefined && parseInt(stock) === 0) prod._outOfStock = true;
       PRODUCTS[catId].push(prod);
     }
     clearInterval(dotsInterval);
@@ -2810,9 +2812,9 @@ function renderProducts(catId, filterTipo) {
   if (filterTipo !== undefined && filterTipo !== null) {
     items = items.filter(p => p.talla === filterTipo || p.tipo === filterTipo);
   }
-  // Hide no-photo cards for public visitors (all categories)
+  // Hide no-photo cards and out-of-stock for public visitors
   if (!document.body.classList.contains('admin-on')) {
-    items = items.filter(p => p.photo);
+    items = items.filter(p => p.photo && !p._outOfStock);
   }
   const grid = document.getElementById('products-grid');
   grid.innerHTML = '';

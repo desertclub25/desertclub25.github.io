@@ -84,6 +84,9 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
 .card.ok{border-color:rgba(76,175,120,.4)}
 .card.bad{border-color:rgba(224,85,85,.25)}
 .card.isnew{border-color:rgba(200,168,75,.5)}
+.card.agotado{border-color:#3a3a3a;opacity:.7}
+.card.agotado img{filter:grayscale(1);opacity:.5}
+.agotado-badge{background:#2a2a2a;color:#888;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid #3a3a3a}
 .card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#111}
 .card-body{padding:11px;display:flex;flex-direction:column;gap:7px}
 .card-fname{font-size:.68rem;color:#c8a84b;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;gap:4px}
@@ -329,7 +332,7 @@ function parseCSV(text){
     headers.forEach(function(h,j){ row[h.trim()]=(vals[j]||'').trim().replace(/^"|"$/g,''); });
     if(!row.photo) continue;
     uidSeq++;
-    newProds.push({uid:'p'+uidSeq,source:'csv',id:row.id||'',catId:row.catId||'',name:row.name||'',price:row.price||'',category:row.category||'',photo:row.photo,talla:row.talla||'',tipo:row.tipo||'',tag:row.tag||'',disponible:row.disponible||'true'});
+    newProds.push({uid:'p'+uidSeq,source:'csv',id:row.id||'',catId:row.catId||'',name:row.name||'',price:row.price||'',category:row.category||'',photo:row.photo,talla:row.talla||'',tipo:row.tipo||'',tag:row.tag||'',disponible:row.disponible||'true',stock:row.stock!==undefined&&row.stock!==''?row.stock:'1'});
   }
   var localOnly=products.filter(function(p){ return p.source==='local'; });
   products=newProds.concat(localOnly);
@@ -392,7 +395,7 @@ function handleFiles(files){
       var ex=products.find(function(p){return p.photo===newName;});
       if(!ex){
         uidSeq++;
-        products.push({uid:'p'+uidSeq,source:'local',id:String(nextNum+i),catId:'',name:'',price:'',category:'',photo:newName,talla:'',tipo:'',tag:'',disponible:'true'});
+        products.push({uid:'p'+uidSeq,source:'local',id:String(nextNum+i),catId:'',name:'',price:'',category:'',photo:newName,talla:'',tipo:'',tag:'',disponible:'true',stock:'1'});
       }
       pending--; if(!pending){updateHint();renderGrid();markDirty();toast('📷 Foto renombrada a '+newName);}
     };
@@ -436,8 +439,9 @@ function renderGrid(){
 
 function makeCard(p){
   var ok=!!(p.name&&p.catId&&p.price);
+  var agotado=(String(p.stock||'1')==='0');
   var div=document.createElement('div');
-  div.className='card '+(p.source==='local'?'isnew':(ok?'ok':'bad'));
+  div.className='card '+(agotado?'agotado':(p.source==='local'?'isnew':(ok?'ok':'bad')));
   div.dataset.uid=p.uid;
   var imgSrc=localPhotos[p.photo]||p.photo;
   var opts='<option value="">— elige —</option>';
@@ -466,10 +470,16 @@ function makeCard(p){
           '<input type="text" value="'+esc(p.tipo)+'" placeholder="snapback" data-uid="'+p.uid+'" data-fld="tipo"></div>'+
         '<div class="fld"><label>ID / #foto</label>'+
           '<input type="text" value="'+esc(p.id)+'" placeholder="116" data-uid="'+p.uid+'" data-fld="id"></div></div>'+
+      '<div class="row2">'+
+        '<div class="fld"><label>Stock (piezas)</label>'+
+          '<input type="number" min="0" value="'+esc(p.stock!==undefined?p.stock:'1')+'" placeholder="1" data-uid="'+p.uid+'" data-fld="stock"></div>'+
+        '<div class="fld" style="justify-content:flex-end;padding-top:14px">'+
+          (agotado?'<span class="agotado-badge">AGOTADO</span>':'<span style="font-size:.62rem;color:#4caf78;letter-spacing:.05em">EN STOCK ✓</span>')+
+        '</div></div>'+
       '<div class="status-line">'+
-        '<span class="dot" style="background:'+(ok?'#4caf78':'#e05555')+'"></span>'+
-        '<span style="color:'+(ok?'#4caf78':'#e05555')+'">'+(ok?'COMPLETO':'FALTA INFO')+'</span>'+
-        (p.source==='local'?'<span style="color:#c8a84b;margin-left:auto;font-size:.6rem">📷 NUEVO</span>':'')+
+        '<span class="dot" style="background:'+(agotado?'#555':(ok?'#4caf78':'#e05555'))+'"></span>'+
+        '<span style="color:'+(agotado?'#666':(ok?'#4caf78':'#e05555'))+'">'+(agotado?'AGOTADO':(ok?'COMPLETO':'FALTA INFO'))+'</span>'+
+        (p.source==='local'&&!agotado?'<span style="color:#c8a84b;margin-left:auto;font-size:.6rem">📷 NUEVO</span>':'')+
       '</div></div>';
   return div;
 }
@@ -484,7 +494,13 @@ function onFieldInput(e){
   p[el.dataset.fld]=el.value;
   if(el.dataset.fld==='catId'){
     p.category=CAT_LBL[el.value]||'';
-    if(!p.price&&el.value){ p.price=String(CAT_PX[el.value]||''); var card=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]'); if(card){var pi=card.querySelector('[data-fld="price"]');if(pi&&!pi.value)pi.value=p.price;} }
+    if(!p.price&&el.value){ p.price=String(CAT_PX[el.value]||''); var card2=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]'); if(card2){var pi=card2.querySelector('[data-fld="price"]');if(pi&&!pi.value)pi.value=p.price;} }
+  }
+  if(el.dataset.fld==='stock'){
+    // Re-render just this card to update AGOTADO styling
+    var oldCard=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]');
+    if(oldCard){ var newCard=makeCard(p); oldCard.parentNode.replaceChild(newCard,oldCard); }
+    markDirty(); return;
   }
   var ok=!!(p.name&&p.catId&&p.price);
   var card=document.querySelector('.card[data-uid="'+el.dataset.uid+'"]');
@@ -514,9 +530,9 @@ function buildCSV(){
     if(ca!==cb) return (ca<0?999:ca)-(cb<0?999:cb);
     return (parseInt(a.id)||0)-(parseInt(b.id)||0);
   });
-  var hdr='id,catId,name,price,category,photo,talla,tipo,tag,disponible';
+  var hdr='id,catId,name,price,category,photo,talla,tipo,tag,disponible,stock';
   var lines=arr.map(function(r){
-    return [r.id,r.catId,cv(r.name),r.price,cv(r.category),r.photo,r.talla,r.tipo,r.tag||'',r.disponible||'true'].join(',');
+    return [r.id,r.catId,cv(r.name),r.price,cv(r.category),r.photo,r.talla,r.tipo,r.tag||'',r.disponible||'true',r.stock!==undefined?r.stock:'1'].join(',');
   });
   return hdr+'\n'+lines.join('\n')+'\n';
 }
