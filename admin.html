@@ -76,6 +76,9 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
 .fbtn{padding:5px 14px;border-radius:20px;border:1px solid #2a2a2a;background:transparent;color:#888;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:.05em;transition:all .15s}
 .fbtn:hover{border-color:#8a7033;color:#f0ede6}
 .fbtn.on{background:#c8a84b;color:#000;border-color:#c8a84b}
+.sfbtn{padding:4px 11px;border-radius:14px;border:1px solid #3a3020;background:transparent;color:#a89060;font-family:inherit;font-size:11px;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:all .15s}
+.sfbtn:hover{border-color:#c8a84b;color:#e8d5a0}
+.sfbtn.on{background:#3a2e10;color:#e8d5a0;border-color:#8a7033}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
 @media(max-width:540px){.grid{grid-template-columns:1fr 1fr;gap:10px}}
@@ -194,6 +197,16 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
       <button class="fbtn" data-f="59fifty">59FIFTY</button>
       <button class="fbtn" data-f="otras">OTRAS</button>
       <button class="fbtn" data-f="barbas">BARBAS</button>
+    </div>
+    <div class="filters" id="subfilters59" style="display:none;margin-top:-8px;padding-left:8px;border-left:2px solid #c8a84b">
+      <button class="sfbtn on" data-sf="">TODAS</button>
+      <button class="sfbtn" data-sf="niño">NIÑO</button>
+      <button class="sfbtn" data-sf="snapback">SNAPBACK</button>
+      <button class="sfbtn" data-sf="7">TALLA 7</button>
+      <button class="sfbtn" data-sf="7 1/8">7 1/8</button>
+      <button class="sfbtn" data-sf="7 1/4">7 1/4</button>
+      <button class="sfbtn" data-sf="7 3/8">7 3/8</button>
+      <button class="sfbtn" data-sf="7 1/2">7 1/2</button>
     </div>
 
     <div id="gridWrap">
@@ -356,6 +369,7 @@ var CSV_PATH = 'catalog.csv';
 var products = [];
 var localPhotos = {};
 var filter = 'todas';
+var subfilter = '';  // talla/tipo dentro de 59fifty
 var uidSeq = 0;
 var csvSha = '';    // current SHA of catalog.csv on GitHub
 var isDirty = false;
@@ -551,8 +565,25 @@ function handleFiles(files){
 document.querySelector('.filters').addEventListener('click',function(e){
   var btn=e.target.closest('.fbtn'); if(!btn) return;
   filter=btn.dataset.f;
+  subfilter='';
   document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on'); renderGrid();
+  btn.classList.add('on');
+  // mostrar/ocultar subbotones de 59fifty
+  var sf=document.getElementById('subfilters59');
+  sf.style.display=(filter==='59fifty'?'flex':'none');
+  if(filter==='59fifty'){
+    document.querySelectorAll('.sfbtn').forEach(function(b){b.classList.remove('on');});
+    sf.querySelector('[data-sf=""]').classList.add('on');
+  }
+  renderGrid();
+});
+
+document.getElementById('subfilters59').addEventListener('click',function(e){
+  var btn=e.target.closest('.sfbtn'); if(!btn) return;
+  subfilter=btn.dataset.sf;
+  document.querySelectorAll('.sfbtn').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  renderGrid();
 });
 
 // ── Render ──
@@ -565,7 +596,16 @@ function renderGrid(){
   var visible=products.filter(function(p){
     if(filter==='todas') return true;
     if(filter==='pendientes') return !(p.name&&p.catId&&p.price);
-    return p.catId===filter;
+    if(p.catId!==filter) return false;
+    if(filter==='59fifty'&&subfilter!==''){
+      var t=(p.talla||'').toLowerCase().trim();
+      var ti=(p.tipo||'').toLowerCase().trim();
+      var sf=subfilter.toLowerCase();
+      if(sf==='niño')    return ti==='niño'||t==='niño';
+      if(sf==='snapback') return ti==='snapback';
+      return t===sf;
+    }
+    return true;
   });
 
   var grid=document.createElement('div');
