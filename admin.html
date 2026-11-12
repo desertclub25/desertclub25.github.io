@@ -232,10 +232,17 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
         <img id="si_promo1_prev" src="img_0092.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:cover;background:#111">
         <div class="card-body">
           <div class="card-fname"><span>Promo Semana 1</span></div>
-          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Primera imagen de la sección "Promos de la semana"</div>
-          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0092.jpg</strong></div>
-          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_promo1_in').click()">📷 Cambiar promo 1</button>
+          <div style="font-size:.68rem;color:#555;margin-bottom:8px">Archivo: <strong style="color:#c8a84b">img_0092.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-bottom:12px" onclick="document.getElementById('si_promo1_in').click()">📷 Cambiar foto</button>
           <input type="file" id="si_promo1_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0092.jpg','si_promo1_prev',false)">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Etiqueta</label>
+          <input id="pt1_badge" type="text" value="Promo Semanal" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#e8d5a0;padding:6px 9px;border-radius:5px;font-size:.8rem;box-sizing:border-box;margin-bottom:8px" oninput="markPromoDirty()">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Nombre de la gorra</label>
+          <input id="pt1_name" type="text" value="LA Triple Black LV" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#e8e8e8;padding:6px 9px;border-radius:5px;font-size:.8rem;box-sizing:border-box;margin-bottom:8px" oninput="markPromoDirty()">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Descripción</label>
+          <textarea id="pt1_desc" rows="2" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#aaa;padding:6px 9px;border-radius:5px;font-size:.76rem;box-sizing:border-box;resize:vertical;margin-bottom:8px" oninput="markPromoDirty()">Descripción de la promoción. Talla, color, detalles del producto.</textarea>
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Precio (ej: $399)</label>
+          <input id="pt1_price" type="text" value="$399" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#c8a84b;padding:6px 9px;border-radius:5px;font-size:.85rem;box-sizing:border-box" oninput="markPromoDirty()">
         </div>
       </div>
 
@@ -243,10 +250,17 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
         <img id="si_promo2_prev" src="img_0095.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:cover;background:#111">
         <div class="card-body">
           <div class="card-fname"><span>Promo Semana 2</span></div>
-          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Segunda imagen de la sección "Promos de la semana"</div>
-          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0095.jpg</strong></div>
-          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_promo2_in').click()">📷 Cambiar promo 2</button>
+          <div style="font-size:.68rem;color:#555;margin-bottom:8px">Archivo: <strong style="color:#c8a84b">img_0095.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-bottom:12px" onclick="document.getElementById('si_promo2_in').click()">📷 Cambiar foto</button>
           <input type="file" id="si_promo2_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0095.jpg','si_promo2_prev',false)">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Etiqueta</label>
+          <input id="pt2_badge" type="text" value="Promo Semanal" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#e8d5a0;padding:6px 9px;border-radius:5px;font-size:.8rem;box-sizing:border-box;margin-bottom:8px" oninput="markPromoDirty()">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Nombre de la gorra</label>
+          <input id="pt2_name" type="text" value="NY Yankees Red Heart" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#e8e8e8;padding:6px 9px;border-radius:5px;font-size:.8rem;box-sizing:border-box;margin-bottom:8px" oninput="markPromoDirty()">
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Descripción</label>
+          <textarea id="pt2_desc" rows="2" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#aaa;padding:6px 9px;border-radius:5px;font-size:.76rem;box-sizing:border-box;resize:vertical;margin-bottom:8px" oninput="markPromoDirty()">Descripción de la promoción. Talla, color, detalles del producto.</textarea>
+          <label style="font-size:.7rem;color:#888;display:block;margin-bottom:3px">Precio (ej: $349)</label>
+          <input id="pt2_price" type="text" value="$349" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#c8a84b;padding:6px 9px;border-radius:5px;font-size:.85rem;box-sizing:border-box" oninput="markPromoDirty()">
         </div>
       </div>
 
@@ -326,6 +340,7 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
       </div>
 
     </div>
+
   </div>
 </div>
 
@@ -796,23 +811,82 @@ function handleSiteImg(input, filename, prevId, isPng){
   input.value='';
 }
 
-// ── Override saveToGitHub to also upload site images ──
+// ── Promos dirty flag ──────────────────────────────────────────────────
+var promosDirty=false;
+function markPromoDirty(){ promosDirty=true; markDirty(); }
+
+// ── Load promos.json from GitHub on startup ────────────────────────────
+(function loadPromos(){
+  fetch('promos.json?_='+Date.now())
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(d){
+      if(!d) return;
+      var fields=['badge','name','desc','price'];
+      [1,2].forEach(function(n){
+        var p=d['promo'+n];
+        if(!p) return;
+        fields.forEach(function(f){
+          var el=document.getElementById('pt'+n+'_'+f);
+          if(el&&p[f]!==undefined) el.value=p[f];
+        });
+      });
+    }).catch(function(){});
+})();
+
+// ── Build promos.json content ──────────────────────────────────────────
+function buildPromosJson(){
+  var obj={};
+  [1,2].forEach(function(n){
+    obj['promo'+n]={
+      badge:(document.getElementById('pt'+n+'_badge')||{}).value||'',
+      name :(document.getElementById('pt'+n+'_name')||{}).value||'',
+      desc :(document.getElementById('pt'+n+'_desc')||{}).value||'',
+      price:(document.getElementById('pt'+n+'_price')||{}).value||''
+    };
+  });
+  return JSON.stringify(obj,null,2);
+}
+
+// ── Override saveToGitHub to also upload site images + promos.json ──
 var _origSaveToGitHub=saveToGitHub;
 saveToGitHub=function(){
   var t=getToken();
   if(!t){ showTokenSetup(); return; }
   var siteKeys=Object.keys(siteImgPending);
-  if(siteKeys.length===0){ _origSaveToGitHub(); return; }
+  var hasPromos=promosDirty;
+  if(siteKeys.length===0&&!hasPromos){ _origSaveToGitHub(); return; }
   markSaving();
-  document.getElementById('saveTxt').textContent='Subiendo '+siteKeys.length+' imagen(es) del sitio...';
-  var uploads=siteKeys.map(function(fname){
-    var d=siteImgPending[fname];
-    return uploadPhotoToGitHub(fname,d.dataUrl,t).then(function(res){
-      if(res.content){ delete siteImgPending[fname]; toast('✅ '+fname+' actualizada'); }
-      else if(res.message){ toast('⚠ '+fname+': '+res.message); }
+  var pending=[];
+  if(siteKeys.length>0){
+    document.getElementById('saveTxt').textContent='Subiendo '+siteKeys.length+' imagen(es) del sitio...';
+    siteKeys.forEach(function(fname){
+      var d=siteImgPending[fname];
+      pending.push(uploadPhotoToGitHub(fname,d.dataUrl,t).then(function(res){
+        if(res.content){ delete siteImgPending[fname]; toast('✅ '+fname+' actualizada'); }
+        else if(res.message){ toast('⚠ '+fname+': '+res.message); }
+      }));
     });
-  });
-  Promise.all(uploads).then(function(){ _origSaveToGitHub(); });
+  }
+  if(hasPromos){
+    var jsonContent=btoa(unescape(encodeURIComponent(buildPromosJson())));
+    pending.push(
+      fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/promos.json',
+        {headers:{'Authorization':'token '+t,'Accept':'application/vnd.github+json'}})
+      .then(function(r){ return r.ok?r.json():{}; })
+      .then(function(cur){
+        return fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/promos.json',{
+          method:'PUT',
+          headers:{'Authorization':'token '+t,'Content-Type':'application/json','Accept':'application/vnd.github+json'},
+          body:JSON.stringify({message:'Actualizar promos.json',content:jsonContent,sha:cur.sha||undefined})
+        }).then(function(r){ return r.json(); });
+      })
+      .then(function(res){
+        if(res.content){ promosDirty=false; toast('✅ promos.json guardado'); }
+        else if(res.message){ toast('⚠ promos.json: '+res.message); }
+      })
+    );
+  }
+  Promise.all(pending).then(function(){ _origSaveToGitHub(); });
 };
 </script>
 </body>

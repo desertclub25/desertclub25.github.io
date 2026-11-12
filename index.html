@@ -2762,6 +2762,7 @@ function openCategory(cat) {
       { label: 'NIÑO',  filter: 'niño' },
       { label: 'SNAPBACK', filter: 'snapback' },
       { label: '7',     filter: '7' },
+      { label: '7 1/8', filter: '7 1/8' },
       { label: '7 1/4', filter: '7 1/4' },
       { label: '7 3/8', filter: '7 3/8' },
       { label: '7 1/2', filter: '7 1/2' },
@@ -3363,8 +3364,9 @@ initHero();
     reader.readAsDataURL(file);
   }
 
-  // ── PROMO FIELDS PERSISTENCE (localStorage) ──────────────────────────────────
+  // ── PROMO FIELDS — cargar desde promos.json (GitHub) ────────────────────────
   function promosLoad() {
+    // Primero aplicar localStorage (compatibilidad anterior / imágenes)
     [1,2].forEach(function(n) {
       const img = document.getElementById('promo' + n + '-img');
       const ph  = document.getElementById('promo' + n + '-placeholder');
@@ -3372,42 +3374,26 @@ initHero();
         const saved = localStorage.getItem('dc_promo' + n + '_img');
         if (saved) { img.src = saved; img.style.display = 'block'; if(ph) ph.style.display='none'; }
       } catch(_){}
-      ['promo-badge','promo-name','promo-desc','promo-price'].forEach(function(field) {
-        const el = document.querySelector('[data-edit="' + field + '"][data-promo="' + n + '"]');
-        if (!el) return;
-        try {
-          const v = localStorage.getItem('dc_promo' + n + '_' + field);
-          if (v) el.textContent = v;
-        } catch(_){}
-      });
     });
+    // Luego cargar texto desde promos.json
+    fetch('promos.json?_=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d) return;
+        const fieldMap = {'promo-badge':'badge','promo-name':'name','promo-desc':'desc','promo-price':'price'};
+        [1,2].forEach(function(n){
+          const p = d['promo' + n];
+          if (!p) return;
+          Object.keys(fieldMap).forEach(function(cls){
+            const key = fieldMap[cls];
+            const el = document.querySelector('[data-edit="' + cls + '"][data-promo="' + n + '"]');
+            if (el && p[key]) el.textContent = p[key];
+          });
+        });
+      }).catch(function(){});
   }
   promosLoad();
 
-  // Intercept save to also persist promo fields
-  (function() {
-    const origSave = window._dcSavePromos;
-    // Hook into the existing saveBtn if already wired; supplement in setEditableAll
-    const promosSection = document.getElementById('promos');
-    if (!promosSection) return;
-    // Save promo edits to localStorage when save button is clicked
-    const saveBtn = document.getElementById('admin-save-btn');
-    if (saveBtn) {
-      saveBtn.addEventListener('click', function() {
-        [1,2].forEach(function(n) {
-          ['promo-badge','promo-name','promo-desc','promo-price'].forEach(function(field) {
-            const el = document.querySelector('[data-edit="' + field + '"][data-promo="' + n + '"]');
-            if (!el) return;
-            try { localStorage.setItem('dc_promo' + n + '_' + field, el.textContent.trim()); } catch(_){}
-          });
-          // Also persist img if loaded
-          const img = document.getElementById('promo' + n + '-img');
-          if (img && img.src && img.style.display !== 'none') {
-            try { localStorage.setItem('dc_promo' + n + '_img', img.src); } catch(_){}
-          }
-        });
-      });
-    }
-  })();
+  // Promo text now loaded from promos.json (saved via admin)
 
 </script>
