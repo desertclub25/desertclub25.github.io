@@ -153,6 +153,8 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
   <header class="header">
     <div class="logo">Desert Club <small>Admin · Catálogo</small></div>
     <div class="hbtns">
+      <button class="btn btn-ghost btn-sm" onclick="showTab('catalog')" id="tabBtnCatalog">🧢 Catálogo</button>
+      <button class="btn btn-ghost btn-sm" onclick="showTab('images')" id="tabBtnImages">🖼 Imágenes del Sitio</button>
       <button class="btn btn-ghost btn-sm" onclick="reloadCatalog()">🔄 Recargar</button>
       <button class="btn btn-ghost btn-sm" onclick="showTokenSetup()">🔑 Token</button>
       <button class="btn btn-green" id="btnSave" onclick="saveToGitHub()">💾 Guardar en GitHub</button>
@@ -166,7 +168,7 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
     <span style="font-size:.72rem;color:#555" id="saveToken">Sin token configurado — los cambios no se guardarán automáticamente</span>
   </div>
 
-  <div class="main">
+  <div class="main" id="tabCatalog">
     <div class="hint" id="hintNext">Cargando catálogo...</div>
 
     <div class="add-zone">
@@ -196,6 +198,133 @@ body{background:#0d0d0d;color:#f0ede6;font-family:'Inter',system-ui,sans-serif;f
 
     <div id="gridWrap">
       <div class="loading"><div class="spinner"></div>Cargando catálogo...</div>
+    </div>
+  </div>
+
+  <!-- IMÁGENES DEL SITIO -->
+  <div id="tabImages" style="display:none" class="main">
+    <div class="hint">Cambia las imágenes que aparecen en el sitio (logo, fondo, promos). Después haz clic en <strong>💾 Guardar en GitHub</strong>.</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+
+      <div class="card ok">
+        <img id="si_logo_prev" src="img_0094.png" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:contain;background:#111;padding:12px">
+        <div class="card-body">
+          <div class="card-fname"><span>Logo / Escudo</span></div>
+          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Aparece en el header, hero y pie de página</div>
+          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0094.png</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_logo_in').click()">📷 Cambiar logo</button>
+          <input type="file" id="si_logo_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0094.png','si_logo_prev',true)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_hero_prev" src="img_0115.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Fondo del Hero</span></div>
+          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Imagen de fondo de la portada principal</div>
+          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0115.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_hero_in').click()">📷 Cambiar fondo</button>
+          <input type="file" id="si_hero_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0115.jpg','si_hero_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_promo1_prev" src="img_0092.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Promo Semana 1</span></div>
+          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Primera imagen de la sección "Promos de la semana"</div>
+          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0092.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_promo1_in').click()">📷 Cambiar promo 1</button>
+          <input type="file" id="si_promo1_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0092.jpg','si_promo1_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_promo2_prev" src="img_0095.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:1;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Promo Semana 2</span></div>
+          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Segunda imagen de la sección "Promos de la semana"</div>
+          <div style="font-size:.68rem;color:#555">Archivo actual: <strong style="color:#c8a84b">img_0095.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_promo2_in').click()">📷 Cambiar promo 2</button>
+          <input type="file" id="si_promo2_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0095.jpg','si_promo2_prev',false)">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hint" style="margin-top:18px">🗂 <strong>Portadas de Categorías</strong> — foto que aparece en el recuadro de cada categoría en el catálogo</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-top:10px">
+
+      <div class="card ok">
+        <img id="si_59fifty_prev" src="img_0108.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada 59FIFTY</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0108.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_59fifty_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_59fifty_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0108.jpg','si_59fifty_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_barbas_prev" src="img_0109.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada BARBAS</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0109.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_barbas_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_barbas_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0109.jpg','si_barbas_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_placa_prev" src="img_0110.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada PLACA ABS</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0110.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_placa_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_placa_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0110.jpg','si_placa_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_9forty_prev" src="img_0111.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada 9FORTY</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0111.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_9forty_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_9forty_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0111.jpg','si_9forty_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_dandy_prev" src="img_0112.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada DANDY</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0112.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_dandy_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_dandy_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0112.jpg','si_dandy_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_rude_prev" src="img_0113.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada RUDE AWAKENINGS</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0113.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_rude_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_rude_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0113.jpg','si_rude_prev',false)">
+        </div>
+      </div>
+
+      <div class="card ok">
+        <img id="si_31hats_prev" src="img_0114.jpg" onerror="this.style.opacity='.15'" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#111">
+        <div class="card-body">
+          <div class="card-fname"><span>Portada 31 HATS</span></div>
+          <div style="font-size:.68rem;color:#555">Archivo: <strong style="color:#c8a84b">img_0114.jpg</strong></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="document.getElementById('si_31hats_in').click()">📷 Cambiar</button>
+          <input type="file" id="si_31hats_in" accept="image/*" style="display:none" onchange="handleSiteImg(this,'img_0114.jpg','si_31hats_prev',false)">
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -640,6 +769,51 @@ function showTokenSetup(){
 }
 
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+
+// ── Tabs ──
+var currentTab='catalog';
+function showTab(tab){
+  currentTab=tab;
+  document.getElementById('tabImages').style.display=(tab==='images'?'block':'none');
+  document.getElementById('tabCatalog').style.display=(tab==='catalog'?'block':'none');
+  document.getElementById('tabBtnCatalog').className='btn btn-sm '+(tab==='catalog'?'btn-gold':'btn-ghost');
+  document.getElementById('tabBtnImages').className='btn btn-sm '+(tab==='images'?'btn-gold':'btn-ghost');
+}
+
+// ── Site images ──
+var siteImgPending={};  // filename -> {dataUrl, isPng}
+
+function handleSiteImg(input, filename, prevId, isPng){
+  var file=input.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    document.getElementById(prevId).src=ev.target.result;
+    siteImgPending[filename]={dataUrl:ev.target.result,isPng:isPng};
+    markDirty();
+    toast('📷 '+filename+' lista — clic en Guardar en GitHub');
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
+
+// ── Override saveToGitHub to also upload site images ──
+var _origSaveToGitHub=saveToGitHub;
+saveToGitHub=function(){
+  var t=getToken();
+  if(!t){ showTokenSetup(); return; }
+  var siteKeys=Object.keys(siteImgPending);
+  if(siteKeys.length===0){ _origSaveToGitHub(); return; }
+  markSaving();
+  document.getElementById('saveTxt').textContent='Subiendo '+siteKeys.length+' imagen(es) del sitio...';
+  var uploads=siteKeys.map(function(fname){
+    var d=siteImgPending[fname];
+    return uploadPhotoToGitHub(fname,d.dataUrl,t).then(function(res){
+      if(res.content){ delete siteImgPending[fname]; toast('✅ '+fname+' actualizada'); }
+      else if(res.message){ toast('⚠ '+fname+': '+res.message); }
+    });
+  });
+  Promise.all(uploads).then(function(){ _origSaveToGitHub(); });
+};
 </script>
 </body>
 </html>
