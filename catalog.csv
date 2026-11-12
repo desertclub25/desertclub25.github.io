@@ -1,4 +1,16 @@
 id,catId,name,price,category,photo,talla,tipo,tag,disponible,stock
+b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true,1
+b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true,1
+b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true,1
+b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true,1
+b5,barbas,BARBAS SNAKE GOLD,600,BARBAS,img_0100.jpg,,,,true,1
+b6,barbas,BARBAS CROSSES,600,BARBAS,img_0101.jpg,,,,true,1
+b7,barbas,BARBAS BH,600,BARBAS,img_0102.jpg,,,,true,1
+b8,barbas,BARBAS MOON,600,BARBAS,img_0103.jpg,,,,true,1
+b9,barbas,BARBAS SNAKE CROSS,600,BARBAS,img_0104.jpg,,,,true,1
+b10,barbas,BARBAS ETERNO,600,BARBAS,img_0105.jpg,,,,true,1
+b11,barbas,BARBAS SUN,600,BARBAS,img_0106.jpg,,,,true,1
+b12,barbas,BARBAS RICH FOREVER,600,BARBAS,img_0107.jpg,,,,true,1
 nd1,dandy,LA Daddy Paisley,600,DANDY,img_0001.jpg,,,,true,1
 nd2,dandy,Fuerza Regida,600,DANDY,img_0002.jpg,,,,true,1
 nd3,dandy,AWAK Jesus,600,DANDY,img_0003.jpg,,,,true,1
@@ -58,7 +70,7 @@ s7_1,59fifty,Blue Jays Black,500,59FIFTY,img_0056.jpg,7,,,true,1
 s7_2,59fifty,LA Dodgers Black,500,59FIFTY,img_0057.jpg,7,,,true,1
 s7_3,59fifty,Detroit Tigers Gold D,500,59FIFTY,img_0058.jpg,7,,,true,1
 s7_4,59fifty,LA Dodgers Red,500,59FIFTY,img_0059.jpg,7,,,true,1
-s7_5,59fifty,Fear of God M Navy,500,59FIFTY,img_0060.jpg,7,,,true,0
+s7_5,59fifty,Fear of God M Navy,500,59FIFTY,img_0060.jpg,7,,,true,1
 s738_1,59fifty,Padres Brown Gold,500,59FIFTY,img_0061.jpg,7 3/8,,,true,1
 s738_2,59fifty,Fear of God F Black Gold,500,59FIFTY,img_0062.jpg,7 3/8,,,true,1
 s738_3,59fifty,LA Dodgers Camel Purple,500,59FIFTY,img_0063.jpg,7 3/8,,,true,1
@@ -89,54 +101,26 @@ n5,59fifty,Indians World Series,500,59FIFTY,img_0087.jpg,7 1/4,,,true,1
 n6,59fifty,Born N La Red,500,59FIFTY,img_0088.jpg,7 1/4,,,true,1
 n7,59fifty,Yankees World Series,500,59FIFTY,img_0089.jpg,7 1/4,,,true,1
 n8,59fifty,MLB All Teams,500,59FIFTY,img_0090.jpg,7 1/4,,,true,1
-n9,59fifty,White Sox Black Multi Patch,500,59FIFTY,img_0116.jpg,7 1/4,,,true,1
-117,59fifty,TORONTO BLACK,500,59FIFTY,img_0117.jpg,7 1/4,,,true,1
-118,59fifty,ANGELINOS,500,59FIFTY,img_0118.jpg,71/8,,,true,1
-119,59fifty,BLACK ANGELINOS,500,59FIFTY,img_0119.jpg,71/8,,,true,1
-120,59fifty,BORN RAISED X MEXICO,500,59FIFTY,img_0120.jpg,71/8,,,true,1
-121,59fifty,DUCKS,500,59FIFTY,img_0121.jpg,71/8,,,true,1
-122,59fifty,BLACK HOUSTON,500,59FIFTY,img_0122.jpg,71/8,,,true,1
-123,59fifty,MEXICO ,500,59FIFTY,img_0123.jpg,71/8,,,true,1
-124,59fifty,BLACK NY,500,59FIFTY,img_0124.jpg,71/8,,,true,1
-125,59fifty,NY FLAMAS,500,59FIFTY,img_0125.jpg,71/8,,,true,1
-126,59fifty,NY COLORS,500,59FIFTY,img_0126.jpg,71/8,,,true,1
-127,59fifty,NY APPLE,500,59FIFTY,img_0127.jpg,71/8,,,true,1
-128,59fifty,SL,500,59FIFTY,img_0128.jpg,71/8,,,true,1
-129,59fifty,SD,500,59FIFTY,img_0129.jpg,71/8,,,true,1
-130,59fifty,SUPREME,500,59FIFTY,img_0130.jpg,71/8,,,true,1
-131,59fifty,TORONTO ,500,59FIFTY,img_0131.jpg,71/8,,,true,1
-132,59fifty,BLACK BRAVES,500,59FIFTY,img_0132.jpg,71/4,,,true,1
-133,59fifty,LA ,500,59FIFTY,img_0133.jpg,71/4,,,true,1
-134,59fifty,D-BACKS,500,59FIFTY,img_0134.jpg,71/4,,,true,1
-135,59fifty,FEAR OD GOD,500,59FIFTY,img_0135.jpg,71/4,,,true,1
-136,59fifty,LA LOGOS,500,59FIFTY,img_0136.jpg,71/4,,,true,1
-137,59fifty,TORONTO,500,59FIFTY,img_0137.jpg,71/4,,,true,1
-138,59fifty,W,500,59FIFTY,img_0138.jpg,71/4,,,true,1
-139,59fifty,LA,500,59FIFTY,img_0139.jpg,71/4,,,true,1
-140,59fifty,ATLANTA ,500,59FIFTY,img_0140.jpg,71/4,,,true,1
-141,59fifty,CUBS,500,59FIFTY,img_0141.jpg,71/4,,,true,1
-142,59fifty,C,500,59FIFTY,img_0142.jpg,71/4,,,true,1
-143,59fifty,BRAVES ,500,59FIFTY,img_0143.jpg,71/4,,,true,1
-144,59fifty,NY STARS,500,59FIFTY,img_0144.jpg,71/4,,,true,1
-145,59fifty,DUCKS ,500,59FIFTY,img_0145.jpg,71/4,,,true,1
-146,59fifty,PIRATES,500,59FIFTY,img_0146.jpg,71/4,,,true,1
-147,59fifty,BLACK SUPREME,500,59FIFTY,img_0147.jpg,71/4,,,true,1
-148,59fifty,NY LOGOS,500,59FIFTY,img_0148.jpg,71/4,,,true,1
-149,59fifty,DETROIT,500,59FIFTY,img_0149.jpg,71/4,,,true,1
-150,59fifty,BLUE SOX,500,59FIFTY,img_0150.jpg,71/4,,,true,1
-151,59fifty,BLUE TORONTO,500,59FIFTY,img_0151.jpg,71/4,,,true,1
 ot_1,otras,Stars Rhinestone Black,500,OTRAS MARCAS,img_0091.jpg,,,,true,1
 ot_2,otras,LA Triple Black LV,500,OTRAS MARCAS,img_0092.jpg,,,,true,1
 ot_3,otras,Dragon Premium Black,500,OTRAS MARCAS,img_0093.jpg,,,,true,1
-b1,barbas,BARBAS D CRYSTAL,600,BARBAS,img_0096.jpg,,,,true,1
-b2,barbas,BARBAS BBA CHROME,600,BARBAS,img_0097.jpg,,,,true,1
-b3,barbas,BARBAS 777,600,BARBAS,img_0098.jpg,,,,true,1
-b4,barbas,BARBAS STAR,600,BARBAS,img_0099.jpg,,,,true,1
-b5,barbas,BARBAS SNAKE GOLD,600,BARBAS,img_0100.jpg,,,,true,1
-b6,barbas,BARBAS CROSSES,600,BARBAS,img_0101.jpg,,,,true,1
-b7,barbas,BARBAS BH,600,BARBAS,img_0102.jpg,,,,true,1
-b8,barbas,BARBAS MOON,600,BARBAS,img_0103.jpg,,,,true,1
-b9,barbas,BARBAS SNAKE CROSS,600,BARBAS,img_0104.jpg,,,,true,1
-b10,barbas,BARBAS ETERNO,600,BARBAS,img_0105.jpg,,,,true,1
-b11,barbas,BARBAS SUN,600,BARBAS,img_0106.jpg,,,,true,1
-b12,barbas,BARBAS RICH FOREVER,600,BARBAS,img_0107.jpg,,,,true,1
+n9,59fifty,White Sox Black Multi Patch,500,59FIFTY,img_0116.jpg,7 1/4,,,true,1
+n10,59fifty,Braves Black Red Patch,500,59FIFTY,img_0117.jpg,7 1/4,,,true,1
+n11,59fifty,Dodgers Blue Gold WS 2024,500,59FIFTY,img_0118.jpg,7 1/4,,,true,1
+n12,59fifty,Diamondbacks Red Teal,500,59FIFTY,img_0119.jpg,7 1/4,,,true,1
+n13,59fifty,FOG Black Gold Gothic H,500,59FIFTY,img_0120.jpg,7 1/4,,,true,1
+n14,59fifty,Dodgers Black Gold Brim,500,59FIFTY,img_0121.jpg,7 1/4,,,true,1
+n15,59fifty,Blue Jays Beige Black,500,59FIFTY,img_0122.jpg,7 1/4,,,true,1
+n16,59fifty,Nationals Red White W,500,59FIFTY,img_0123.jpg,7 1/4,,,true,1
+n17,59fifty,Dodgers Black WS 1981,500,59FIFTY,img_0124.jpg,7 1/4,,,true,1
+n18,59fifty,Braves Black Gray WS,500,59FIFTY,img_0125.jpg,7 1/4,,,true,1
+n19,59fifty,Cubs Brown 1990 All Star,500,59FIFTY,img_0126.jpg,7 1/4,,,true,1
+n20,59fifty,Cubs Black Murakami,500,59FIFTY,img_0127.jpg,7 1/4,,,true,1
+n21,59fifty,Braves Gold 150th Anniversary,500,59FIFTY,img_0128.jpg,7 1/4,,,true,1
+n22,59fifty,Yankees Black Teal Stars,500,59FIFTY,img_0129.jpg,7 1/4,,,true,1
+n23,59fifty,Mighty Ducks Gray 35th,500,59FIFTY,img_0130.jpg,7 1/4,,,true,1
+n24,59fifty,Pirates Black Gold P,500,59FIFTY,img_0131.jpg,7 1/4,,,true,1
+n25,59fifty,Supreme Black S Cross,500,59FIFTY,img_0132.jpg,7 1/4,,,true,1
+n26,59fifty,Yankees Black WS Patches,500,59FIFTY,img_0133.jpg,7 1/4,,,true,1
+n27,59fifty,Tigers Black Teal WS 98,500,59FIFTY,img_0134.jpg,7 1/4,,,true,1
+n28,59fifty,White Sox Blue WS 85,500,59FIFTY,img_0135.jpg,7 1/4,,,true,1
