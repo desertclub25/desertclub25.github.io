@@ -1,0 +1,14 @@
+{
+  "promo1": {
+    "badge": "Promo Semanal",
+    "name": "LA BLACK",
+    "desc": "Descripción de la promoción. Talla, color, detalles del producto.",
+    "price": "$399"
+  },
+  "promo2": {
+    "badge": "Promo Semanal",
+    "name": "NY Yankees Red Heart",
+    "desc": "Descripción de la promoción. Talla, color, detalles del producto.",
+    "price": "$349"
+  }
+}
